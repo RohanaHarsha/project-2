@@ -1,3 +1,4 @@
-
-TensorFlow
-spaCy
+Flask
+Flask-RESTful
+tensorflow
+googlemaps
