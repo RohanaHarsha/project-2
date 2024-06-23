@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask 
 
-def create_app():
+
+def create_app(a():
     app = Flask(__name__)
-    
-    # Register blueprints or routes
-    from .routes import main
-    app.register_blueprint(main)
-    
+    app.config.from_object('instance.config.config')
+
+    with app.app_context():
+        from . import routes
+
     return app
