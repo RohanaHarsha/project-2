@@ -1,16 +1,15 @@
-Daffodl Zone Project
+Project-2
 
-Welcome to the **Daffodl Zone** project! This project is designed to be easy to set up and run for both development and testing. Companies and contributors can quickly understand how to run the project by following the steps below.
+Welcome to the project-2 ! This project is designed to be easy to set up and run for both development and testing.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Setup Instructions](#setup-instructions)
 - [Running the Project](#running-the-project)
 - [Project Structure](#project-structure)
-- [License](#license)
 
 ## Overview
-The Daffodl Zone project consists of a **backend** built with Flask and a **frontend** powered by React. We have separated the two parts into different folders for easier management.
+project consists of a **backend** built with Flask and a **frontend** powered by React. We have separated the two parts into different folders for easier management.
 
 ## Setup Instructions
 # 
