@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+.DaffodilZone{
+    font-size: 35px;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 479;
+    font-style: normal;
+}
+
+
+li, a, button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+    list-style: none;
+    
+}
+
+.topnav {
+    border-bottom: 2px solid #0088a9; /* Add bottom border */
+    background-color: #000000;
+}
+
+header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+}
+.contact-login {
+    display: flex;
+    align-items: center; /* Aligns contact info and login button vertically */
+  }
+.contact-login .contactinfo{
+    text-align: end;
+}
+.contact-login .contactinfo ul li {
+    font-size: 9px;
+    margin-right: 5px;
+}
+.contact-login .contactinfo ul {
+    margin: 0 !important;
+    padding-left: 0 !important;
+}
+.logo {
+    width: 50px;
+    height: 70px;
+    cursor: pointer;
+}
+
+.nav__links {
+    list-style: none;
+    display: flex;
+    justify-content: space-around; /* Ensure equal spacing between items */
+    align-items: center;
+    width: 100%;
+}
+
+.nav__links li {
+    padding: 0 20px; /* Adjust padding if needed */
+}
+
+.nav__links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover {
+    color: #0088a9;
+}
+
+button {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background-color: rgba(0, 136, 169, 0.8);
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #000000; /* Ensure the background color is set */
+    justify-content: space-around;
+}

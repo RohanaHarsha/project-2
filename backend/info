@@ -1,0 +1,13 @@
+pip install  werkzeug
+pip install SQLAlchemy
+pip install flask-marshmallow
+pip install Flask-cors
+pip install flask-bcrypt
+
+npm install mdb-react-ui-kit    -------- install that in frontend cmd
+
+
+virt\Scripts\activate - for activate environment
+set FLASK_ENV=development - developer mode
+set FLASK_APP=app.py
+flask run- for run app

@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    height: 100vh; /* Full height of the viewport */
+  }
+  
+  .latestProjectBanner {
+    width: 80%;
+    margin-top: 20px; /* Adjust this value to change the space at the top */
+  }
+  
+  .carousel-image {
+    height: 100%; /* Set a specific height for the carousel images */
+    object-fit: cover; /* Ensure the images cover the entire carousel item */
+  }
+  

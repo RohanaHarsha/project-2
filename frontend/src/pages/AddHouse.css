@@ -1,0 +1,15 @@
+.body{
+    margin-left: 10px;
+}
+.custom-container {
+    margin-left: 0; /* Adjust left margin as needed */
+    margin-right: 0; /* Adjust right margin as needed */
+    padding-left: 0; /* Optionally adjust left padding */
+    padding-right: 0; /* Optionally adjust right padding */
+  }
+  .bodyProperties {
+    border: 3px solid #444444;
+    padding: 20px;
+    margin: 5px;
+  }
+  

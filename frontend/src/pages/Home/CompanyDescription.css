@@ -1,0 +1,22 @@
+.company-description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px; /* Adjust as needed */
+  }
+  
+  .description-left {
+    flex: 1; /* Take up remaining space */
+    padding-right: 20px; /* Adjust spacing between text and image */
+  }
+  
+  .description-image-right {
+    flex: 1; /* Take up remaining space */
+    text-align: center; /* Center the image horizontally */
+  }
+  
+  .description-image-right img {
+    max-width: 100%; /* Ensure the image does not exceed its container width */
+    border-radius: 10px; /* Adjust the border-radius to create rounded corners */
+  }
+  

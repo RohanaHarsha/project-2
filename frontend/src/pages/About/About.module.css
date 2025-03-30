@@ -1,0 +1,61 @@
+.aboutSection {
+  width: 100%;
+  height: 50vh;
+  background: url(../../img/about.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.aboutSectionText {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  color: #ffffff;
+  text-align: left;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.left, .right {
+  flex: 1;
+}
+
+.mtop {
+  margin-top: 20px;
+}
+
+.btn2 {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn2:hover {
+  background-color: #555;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

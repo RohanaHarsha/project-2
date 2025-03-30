@@ -1,0 +1,37 @@
+.content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .box {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .img {
+    width: 100%; /* Ensure the image container takes full width of the parent */
+    height: 200px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Hide any overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .img img {
+    width: auto;
+    height: 100%;
+  }
+  
+  .text {
+    padding: 15px;
+  }
+  
+  .category {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
