@@ -1,6 +1,6 @@
-Project-2
+## Project-2
 
-Welcome to the project-2 ! This project is designed to be easy to set up and run for both development and testing.
+Welcome to the project-2 ! This project is designed to be easy to set up and run for development
 
 ## Table of Contents
 - [Overview](#overview)
