@@ -1,4 +1,20 @@
-@app.route('/addLuxuryHouse', methods=['POST'])
+from flask import Blueprint, Flask, jsonify, request, session, redirect, url_for
+import os
+from werkzeug.utils import secure_filename
+from flask_marshmallow import Marshmallow
+from flask_cors import CORS
+from models import db, Banner, House, HouseImage, User, Hotel, HotelImage, Agent, Admin, Customer, AgentHouse, AgentHouseImage,PropertyBooking
+from schemas import banner_schema, house_schema, house_image_schema, hotel_schema, hotel_image_schema, agent_schema, customer_schema, Agent_house_schema, Agent_house_image_schema,Property_Booking_Schema
+from flask_bcrypt import Bcrypt
+import re
+import logging
+from datetime import datetime, time
+from flask_mail import Mail, Message
+
+house_bp = Blueprint('Hoses', __name__)
+
+
+@house_bp.route('/addLuxuryHouse', methods=['POST'])
 def upload_luxury_house():
     try:
         # Print the form data for debugging
@@ -72,7 +88,7 @@ def upload_luxury_house():
         return {"error": str(e)}, 500
 
 
-@app.route('/displayHouses', methods=['GET'])
+@house_bp.route('/displayHouses', methods=['GET'])
 def houses():
     try:
         all_houses = House.query.all()
@@ -82,7 +98,7 @@ def houses():
         return jsonify({"error": str(e), "status": "fail"}), 500        
 
 ########################################################################################
-@app.route('/displayHouse', methods=['POST'])
+@house_bp.route('/displayHouse', methods=['POST'])
 def get_house():
     try:
         data = request.get_json()

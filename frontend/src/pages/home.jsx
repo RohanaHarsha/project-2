@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/commen/navbar';
-import HomePageImage1 from '../img/HomePageImage1.jpg';
+import HomeVid from '../img/HomeVid.mp4';
 import '../pages/home.css';
 import LatestProjects from '../components/LatestProjects';
 import Recent from "../pages/Home/Recent"
@@ -19,7 +19,7 @@ export default function Home() {
           <h1 className='text-on-image'>Explore<br />Your Dream House<br />With Us</h1>
         </div>
       </div>
-        <img className="homePageImage" src={HomePageImage1} alt="" />
+        <video className="homePageImage" src={HomeVid}  alt=" " />
         <form className="filterForm" style={{ borderRadius: '30px', padding: '10px', border: '1px solid #ccc' }}>
           
           <input type="text" placeholder="Search..." style={{ borderRadius: '30px', padding: '8px', width:'100%', border: '1px solid #ccc' }} />

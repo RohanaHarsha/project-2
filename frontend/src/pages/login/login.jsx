@@ -17,7 +17,7 @@ export default function LoginPage() {
         } else if (role.length === 0) {
             alert("Role has left Blank!");
         } else {
-            axios.post('http://127.0.0.1:5000/login', {
+            axios.post('http://127.0.0.1:5000/auth/login', {
                 email: email,
                 password: password,
                 role: role

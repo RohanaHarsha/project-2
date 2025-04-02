@@ -23,12 +23,12 @@ const Signup = () => {
     const handleSignIn = (e) => {
         e.preventDefault();
         if (!email || !password || !role) {
-            alert("Please fill in all fields");
+            alert("Please fill in all fields(Role is fucked) ");
             return;
         }
     
         // API call for login
-        axios.post('http://127.0.0.1:5000/login', {
+        axios.post('http://127.0.0.1:5000/auth/login', {
             email: email,
             password: password,
             role: role
@@ -85,7 +85,7 @@ const Signup = () => {
         setLoading(true); // Set loading to true before API call
 
         // API call for signup
-        axios.post('http://127.0.0.1:5000/UsersignUp', {
+        axios.post('http://127.0.0.1:5000/auth/UsersignUp', {
             name,
             email,
             password,

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, redirect, url_for
+'''from flask import Flask, jsonify, request, session, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
 from flask_marshmallow import Marshmallow
@@ -13,15 +13,12 @@ from flask_mail import Mail, Message
 from Routes.banner import banner_bp
 from Routes.agent import agent_bp
 from Routes.hotel import hotel_bp
+from Routes.auth import auth_bp
 
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-#bluprints 
-app.register_blueprint(banner_bp, url_prefix="/banner")
-app.register_blueprint(agent_bp, url_prefix="/agent")
-app.register_blueprint(hotel_bp, url_prefix="/hotels")
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
@@ -66,6 +63,14 @@ def allowed_file(filename):
 def is_valid_email(email):
     """Check if the email format is valid."""
     return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
+
+
+#bluprints 
+app.register_blueprint(banner_bp, url_prefix="/banner")
+app.register_blueprint(agent_bp, url_prefix="/agent")
+app.register_blueprint(hotel_bp, url_prefix="/hotels")
+app.register_blueprint(auth_bp, url_prefix="/auth")
+
 
 # Make routes
 @app.route('/send_email', methods=["POST"])
@@ -463,139 +468,13 @@ def displayHouses(houseType):
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
 
-@app.route('/signUp', methods=['POST'])
-def signUp():
-    try:
-     
-        email = request.json["email"]
-        password = request.json["password"]
-        username = request.json["username"]
 
-        user_exists = User.query.filter_by(email=email).first() is not None
-
-        if user_exists:
-            return jsonify({"error": "Email already exists", "status": "fail"}), 409
-        
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        new_user = User(email=email, password=hashed_password, username=username)
-        db.session.add(new_user)
-        db.session.commit()
-        
-        session["user_id"] = new_user.id
-        
-        return jsonify({
-            "id": new_user.id,
-            "email": new_user.email,
-            "name": new_user.username,
-            "status": "success"
-        }), 201
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
 
 ##############
 ##############Customer Signup copy########################33
-@app.route('/UsersignUp', methods=['POST'])
-def UsersignUp():
-    try:
-        # Retrieve data from the request
-        name = request.json.get("name")
-        email = request.json.get("email")
-        password = request.json.get("password")
-        tp = request.json.get("tp")  # TelePhone number
-        username = request.json.get("username")
 
-        # Check if user already exists
-        user_exists = Customer.query.filter_by(email=email).first() is not None
-
-        if user_exists:
-            return jsonify({"error": "Email already exists", "status": "fail"}), 409
-        
-        # Create new user instance
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        new_user = Customer(name=name, email=email, TP=tp, username=username, password=hashed_password)
-        
-        # Add new user to the session and commit to the database
-        db.session.add(new_user)
-        db.session.commit()
-        
-        # Optionally, store user ID in session (if you want to manage sessions)
-        session["user_id"] = new_user.id
-        
-        return jsonify({
-            "id": new_user.id,
-            "email": new_user.email,
-            "status": "success"
-        }), 201
-
-    except Exception as e:
-        print(e)  # Log the exception for debugging purposes
-        return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
 
 ##############copy################################
-
-@app.route('/login', methods=['POST'])
-def login_user():
-    try:
-        email = request.json.get("email")
-        password = request.json.get("password")
-        role = request.json.get("role")
-
-        # Check for a valid role
-        if role not in VALID_ROLES:
-            return jsonify({"error": "Invalid role", "status": "fail"}), 400
-
-        # Query for the appropriate user based on role
-        user = None
-        if role == 'customer':
-            user = Customer.query.filter_by(email=email).first()
-        elif role == 'agent':
-            user = Agent.query.filter_by(email=email).first()
-        elif role == 'user':
-            user = User.query.filter_by(email=email).first()
-
-        # If the user is not found, return an error
-        if user is None:
-            return jsonify({"error": "Email not found", "status": "fail"}), 401
-
-        # Check if the password matches
-        if not bcrypt.check_password_hash(user.password, password):
-            return jsonify({"error": "Invalid password", "status": "fail"}), 401
-
-        # Save user ID and email in session
-        session["user_id"] = user.id
-        session["email"] = user.email
-        session["username"] = user.username
-        
-        return jsonify({
-            "id": user.id,
-            "email": user.email,
-            "username":user.username,
-            "role": role,
-            "status": "success",
-            "user_id": session["user_id"],
-            "username": session["username"],  # Including user_id in the response
-            "user_email": session["email"]   # Including email in the response
-        }), 200
-
-    except Exception as e:
-        logging.error(f"Error in login_user: {str(e)}")  # Log the error with the exception message
-        return jsonify({"error": "An unexpected error occurred. Please try again later.", "status": "fail"}), 500
-
-    
-    
-@app.route('/get_user_id', methods=['GET'])
-def get_user_id():
-    user_id = session.get("user_id")
-    if user_id:
-        return jsonify({"user_id": user_id, "status": "success"}), 200
-    else:
-        return jsonify({"error": "User not logged in", "status": "fail"}), 401
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    
 
 
 ###########################
@@ -820,4 +699,53 @@ def display_all_agent_house():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)'''
+
+
+
+
+from flask import Flask, jsonify
+from schemas import HouseSchema
+from config import Config
+from flask_cors import CORS
+from models import House, db
+from flask_mail import Mail
+from flask_bcrypt import Bcrypt
+import logging
+
+app = Flask(__name__)
+app.config.from_object(Config)
+CORS(app, supports_credentials=True)
+
+# Initialize extensions
+db.init_app(app)
+mail = Mail(app)
+bcrypt = Bcrypt(app)
+
+with app.app_context():
+    db.create_all()
+
+# Register blueprints from the Routes folder
+from Routes.banner import banner_bp
+from Routes.agent import agent_bp
+from Routes.hotel import hotel_bp
+from Routes.auth import auth_bp
+from Routes.main import main_bp  # Import main_bp from Routes/main.py
+
+app.register_blueprint(banner_bp, url_prefix="/banner")
+app.register_blueprint(agent_bp, url_prefix="/agent")
+app.register_blueprint(hotel_bp, url_prefix="/hotels")
+app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(main_bp)  # No prefix needed unless you want one
+
+@app.route('/displayRecentCard', methods=['GET'])
+def displayRecentCard():
+    try:
+        first_ten_houses = House.query.order_by(House.upload_time.desc()).limit(6).all()
+        results = HouseSchema.dump(first_ten_houses)
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({"error": str(e), "status": "fail"}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
