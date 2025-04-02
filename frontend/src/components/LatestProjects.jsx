@@ -16,7 +16,7 @@ class LatestProjects extends Component {
 
   // Method to fetch images from the backend
   fetchImages = () => {
-    axios.get('http://127.0.0.1:5000/displayBanner')
+    axios.get('http://127.0.0.1:5000/banner/displayBanner')
       .then(response => {
         this.setState({ images: response.data });
       })

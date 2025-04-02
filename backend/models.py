@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from uuid import uuid4
-
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -182,9 +181,10 @@ class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(120), index=True)
     address = db.Column(db.String(120), index=True)
-    NIC = db.Column(db.String(20), index=True)  # Adjust data type as necessary
-    email = db.Column(db.String(150), index=True, unique=True)  # Adjust length and uniqueness constraint
-    username = db.Column(db.String(120), index=True, unique=True)  # Adjust length and uniqueness constraint
+    NIC = db.Column(db.String(20), index=True)  
+    email = db.Column(db.String(150), index=True, unique=True) 
+    TP = db.Column(db.String(20), index=True)  
+    username = db.Column(db.String(120), index=True, unique=True)  
     password = db.Column(db.String(120), index=True)
     
     def __init__(self, name, address, NIC, email, TP, username, password):

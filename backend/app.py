@@ -10,9 +10,18 @@ import re
 import logging
 from datetime import datetime, time
 from flask_mail import Mail, Message
+from Routes.banner import banner_bp
+from Routes.agent import agent_bp
+from Routes.hotel import hotel_bp
+
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
+
+#bluprints 
+app.register_blueprint(banner_bp, url_prefix="/banner")
+app.register_blueprint(agent_bp, url_prefix="/agent")
+app.register_blueprint(hotel_bp, url_prefix="/hotels")
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskdb.db'
@@ -96,70 +105,23 @@ def send_email():
         logging.error(f"Error sending email: {str(e)}")
         return jsonify({"error": "Failed to send email", "details": str(e)}), 500
 
-if __name__ == '__main__':
+if __name__ == '__main__':import os
+
+class Config:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'DaffodilZone'
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME', 'tharindahasaranga99@gmail.com')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'pdvo biul qxtm esvz')
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    UPLOAD_FOLDER = 'static/uploads'
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     app.run(debug=True)
 
 #############
-@app.route("/addBanner", methods=["POST"])
-def upload_file():
-    try:
-        if 'files[]' not in request.files or 'description' not in request.form:
-            return jsonify({"message": 'No file part or description in the request', "status": 'fail'}), 400
-
-        files = request.files.getlist('files[]')
-        description = request.form['description']
-        
-        errors = {}
-        success = False
-
-        for file in files:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-                # Save file metadata to the database
-                new_image = Banner(title=filename, description=description)
-                db.session.add(new_image)
-                db.session.commit()
-                success = True
-            else:
-                errors[file.filename] = 'File type is not allowed'
-        
-        if success:
-            return jsonify({"message": 'Files successfully uploaded', "status": 'success'}), 201
-        else:
-            return jsonify(errors), 500
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
-
-@app.route('/displayBanner', methods=['GET'])
-def images():
-    try:
-        all_images = Banner.query.all()
-        results = banner_schema.dump(all_images)
-        return jsonify(results), 200
-    except Exception as e:
-        return jsonify({"error": str(e), "status": "fail"}), 500
-
-@app.route('/deleteBanner/<int:id>', methods=['DELETE'])
-def delete_image(id):
-    try:
-        image = Banner.query.get(id)
-        if not image:
-            return jsonify({"message": "Image not found", "status": "fail"}), 404
-
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], image.title))
-        db.session.delete(image)
-        db.session.commit()
-        
-        return jsonify({"message": "Image deleted", "status": "success"}), 200
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
-
 @app.route('/addLuxuryHouse', methods=['POST'])
 def upload_luxury_house():
     try:
@@ -634,93 +596,7 @@ def get_user_id():
 if __name__ == '__main__':
     app.run(debug=True)
     
-@app.route('/addHotel', methods=['POST'])
-def upload_hotel():
-    try:
-        district = request.form['district'].lower()
-        address = request.form['address']
-        no_of_rooms = request.form['no_of_rooms']
-        land_size = request.form['land_size']
-        distance = request.form['distance']
-        keyWord = request.form['keyWord']
-        description = request.form['description']
-        
-        # Create new House object
-        new_hotel = Hotel(district=district, address=address,
-                          no_of_rooms=no_of_rooms,
-                          land_size=land_size, distance=distance,
-                          keyWord=keyWord, description=description)
-        
-        # Add new house to session and commit to database
-        db.session.add(new_hotel)
-        db.session.commit()
 
-        # Handle images
-        image_filenames = []
-        for i in range(1, 7):
-            image_file = request.files.get(f'image{i}')
-            if image_file:
-                filename = secure_filename(image_file.filename)
-                image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                image_filenames.append(filename)
-            else:
-                image_filenames.append(None)
-
-        # Create new HouseImage object
-        new_image = HotelImage(image1=image_filenames[0], image2=image_filenames[1],
-                               image3=image_filenames[2], image4=image_filenames[3],
-                               image5=image_filenames[4], image6=image_filenames[5],
-                               hotel=new_hotel)
-        
-        # Add new image to session and commit to database
-        db.session.add(new_image)
-        db.session.commit()
-
-        return jsonify({'message': 'Successfully uploaded', 'status': 'success'}), 201
-
-    except Exception as e:
-        db.session.rollback() 
-        return jsonify({'error': str(e), 'status': 'fail'}), 500
-    
-@app.route('/displayHotel', methods=['GET'])
-def hotels():
-    try:
-        all_hotels = Hotel.query.all()
-        results = hotel_schema.dump(all_hotels)
-        return jsonify(results), 200
-    except Exception as e:
-        return jsonify({"error": str(e), "status": "fail"}), 500
-    
-
-@app.route('/deleteHotel/<int:id>', methods=['DELETE'])
-def delete_hotel(id):
-    try:
-        hotel = Hotel.query.get(id)
-        if not hotel:
-            return jsonify({"message": "House not found", "status": "fail"}), 404
-
-        # Find all images associated with the house
-        hotel_images = HotelImage.query.filter_by(hotel_id=hotel.id).all()
-
-        # Delete each image file
-        for image in hotel_images:
-            for i in range(1, 7):
-                image_url = getattr(image, f'image{i}')
-                if image_url:
-                    image_file_path = os.path.join(app.config['UPLOAD_FOLDER'], image_url)
-                    if os.path.exists(image_file_path):
-                        os.remove(image_file_path)
-            db.session.delete(image)
-
-        # Delete the house record
-        db.session.delete(hotel)
-        db.session.commit()
-        
-        return jsonify({"message": "House and associated images deleted", "status": "success"}), 200
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
 
 ###########################
 @app.route('/addAgent', methods=['POST'])
@@ -941,16 +817,7 @@ def display_all_agent_house():
         return jsonify({"error": str(e), "status": "fail"}), 500  # Handle errors
 
 
-#############
-#make routes
-#@app.route('/send_email', methods = ["POST"])
-#def send_email():
-#    name = request.form['name']
 
-#############
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
+    app.run(debug=False)
