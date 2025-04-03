@@ -114,7 +114,7 @@ def UsersignUp():
         return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
     
 
-'''@auth_bp.route('/signUp', methods=['POST'])
+@auth_bp.route('/signUp', methods=['POST'])
 def signUp():
     try:
      
@@ -143,4 +143,4 @@ def signUp():
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500'''
+        return jsonify({"error": str(e), "status": "fail"}), 500

@@ -80,7 +80,7 @@ deleteImage = (id) => {
     data.append('description', this.state.description); // Append description to form data
 
     axios
-      .post('http://127.0.0.1:5000/addBanner', data)
+      .post('http://127.0.0.1:5000/banner/addBanner', data)
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
