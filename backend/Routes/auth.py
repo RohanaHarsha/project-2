@@ -33,14 +33,20 @@ def login_user():
 
         # Query for the appropriate user based on role
         user = None
+        username = None  # Default username as None
+
         if role == 'customer':
             user = Customer.query.filter_by(email=email).first()
+            username = user.username if user else None
         elif role == 'agent':
             user = Agent.query.filter_by(email=email).first()
+            # Agents do not have usernames
         elif role == 'user':
             user = User.query.filter_by(email=email).first()
+            username = user.username if user else None
         elif role == 'admin':
             user = Admin.query.filter_by(email=email).first()
+            username = user.username if user else None
 
         # If the user is not found, return an error
         if user is None:
@@ -49,27 +55,25 @@ def login_user():
         # Check if the password matches
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"error": "Invalid password", "status": "fail"}), 402
+
         # Save user ID and email in session
         session["user_id"] = user.id
         session["email"] = user.email
-        session["username"] = user.username
-        
+
         return jsonify({
             "id": user.id,
             "email": user.email,
-            "username":user.username,
+            "username": username,  # ✅ This avoids the error for 'agent'
             "role": role,
             "status": "success",
             "user_id": session["user_id"],
-            "username": session["username"],  # Including user_id in the response
-            "user_email": session["email"]   # Including email in the response
+            "user_email": session["email"]
         }), 200
 
     except Exception as e:
         print("ERROR:", str(e))
-        #logging.error(f"Error in login_user: {str(e)}")  # Log the error with the exception message
-        #return jsonify({"error": "An unexpected error occurred. Please try again later.", "status": "fail"}), 500
         return jsonify({"error": str(e), "status": "fail"}), 500
+
     ##################################################################################
 
 @auth_bp.route('/UsersignUp', methods=['POST'])
@@ -110,7 +114,7 @@ def UsersignUp():
         return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
     
 
-@auth_bp.route('/signUp', methods=['POST'])
+'''@auth_bp.route('/signUp', methods=['POST'])
 def signUp():
     try:
      
@@ -139,4 +143,4 @@ def signUp():
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
+        return jsonify({"error": str(e), "status": "fail"}), 500'''
