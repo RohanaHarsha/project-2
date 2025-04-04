@@ -1,16 +1,17 @@
-import bcrypt
-from flask import Blueprint, Flask, jsonify, request, session, redirect, url_for
-import os
-from werkzeug.utils import secure_filename
-from flask_marshmallow import Marshmallow
-from flask_cors import CORS
-from models import db, User, Hotel, HotelImage, Agent, Admin, Customer
-from schemas import banner_schema, house_schema, house_image_schema, hotel_schema, hotel_image_schema, agent_schema, customer_schema, Agent_house_schema, Agent_house_image_schema,Property_Booking_Schema
+from flask import Blueprint, jsonify, request, session
+
+#import os
+#from werkzeug.utils import secure_filename
+#from flask_marshmallow import Marshmallow
+#from flask_cors import CORS
+from models import db, User,Agent, Admin, Customer
+#from schemas import admin_schema, agent_schema, customer_schema,
 from flask_bcrypt import Bcrypt
-import re
-import logging
-from datetime import datetime, time
-from flask_mail import Mail, Message
+#import re
+#import logging
+#from datetime import datetime, time
+#from flask_mail import Mail, Message
+
 
 
 auth_bp = Blueprint("auth", __name__)
@@ -30,7 +31,8 @@ def login_user():
         # Check for a valid role
         if role not in VALID_ROLES:
             return jsonify({"error": "Invalid role", "status": "fail"}), 400
-
+        
+        print(role)
         # Query for the appropriate user based on role
         user = None
         username = None  # Default username as None
@@ -41,22 +43,27 @@ def login_user():
         elif role == 'agent':
             user = Agent.query.filter_by(email=email).first()
             # Agents do not have usernames
+        #elif role == 'user':
+            #user = User.query.filter_by(email=email).first()
+            #username = user.username if user else None
         elif role == 'user':
-            user = User.query.filter_by(email=email).first()
-            username = user.username if user else None
-        elif role == 'admin':
             user = Admin.query.filter_by(email=email).first()
-            
+            print("HEY",user)
+            username = user.username if user else None
+
+        
+        
+        print("HEY",user,username)
             
 
         # If the user is not found, return an erro
-            
+        if user:
+            print(f"Stored Hash: {user}")
     
         if user is None:
             return jsonify({"error": "Email not found", "status": "fail"}), 401
- 
+        
 
-        # Check if the password matches
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"error": "Invalid password", "status": "fail"}), 402
 
@@ -80,7 +87,7 @@ def login_user():
 
     ##################################################################################
 
-@auth_bp.route('/UsersignUp', methods=['POST'])
+'''@auth_bp.route('/UsersignUp', methods=['POST'])
 def UsersignUp():
     try:
         # Retrieve data from the request
@@ -99,6 +106,7 @@ def UsersignUp():
         # Create new user instance
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = Customer(name=name, email=email, TP=tp, username=username, password=hashed_password)
+
         
         # Add new user to the session and commit to the database
         db.session.add(new_user)
@@ -147,4 +155,4 @@ def signUp():
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500
+        return jsonify({"error": str(e), "status": "fail"}), 500'''
