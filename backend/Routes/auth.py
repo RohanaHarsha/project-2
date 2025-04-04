@@ -46,11 +46,15 @@ def login_user():
             username = user.username if user else None
         elif role == 'admin':
             user = Admin.query.filter_by(email=email).first()
-            username = user.username if user else None
+            
+            
 
-        # If the user is not found, return an error
+        # If the user is not found, return an erro
+            
+    
         if user is None:
             return jsonify({"error": "Email not found", "status": "fail"}), 401
+ 
 
         # Check if the password matches
         if not bcrypt.check_password_hash(user.password, password):

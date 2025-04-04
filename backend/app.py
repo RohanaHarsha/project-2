@@ -578,70 +578,7 @@ def filter_houses(houseType):
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
 
-##############
-@app.route('/addAgentHouse', methods=['POST'])
-def upload_Agent_House():
-    try:
-        # Retrieve form data
-        houseType = request.form['house_type']
-        district = request.form['district'].lower()
-        address = request.form['address']
-        no_of_rooms = request.form['no_of_rooms']
-        no_of_bathrooms = request.form['no_of_bathrooms']
-        land_size = request.form['land_size']
-        distance = request.form['distance']
-        storey = request.form['storey']
-        keyWord = request.form['keyWord']
-        description = request.form['description']
-        agentId = str(request.form['agentId'])
-        agentEmail = request.form['agentEmail']
-        lng = request.form['lng']
-        lat = str(request.form['lat'])
-        price = request.form['price']
 
-        # Create new AgentHouse object
-        new_Agent_house = AgentHouse(
-            houseType=houseType, district=district, address=address,
-            no_of_rooms=no_of_rooms, no_of_bathrooms=no_of_bathrooms,
-            land_size=land_size, distance=distance, storey=storey,
-            keyWord=keyWord, description=description, agentId=agentId,agentEmail=agentEmail, lng=lng, lat=lat, price=price
-        )
-
-        # Add new house to session and commit to database
-        db.session.add(new_Agent_house)
-        db.session.commit()
-
-        # Handle images
-        image_filenames = []
-        for i in range(1, 7):
-            image_field = f'image{i}'
-            image_file = request.files.get(image_field)
-
-            if image_file and image_file.filename != 'null':  # Ignore 'null' or missing images
-                filename = secure_filename(image_file.filename)
-                image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                image_filenames.append(filename)
-            else:
-                image_filenames.append(None)  # Append None for missing images
-
-        # Create new AgentHouseImage object and link it to the newly created AgentHouse
-        new_image = AgentHouseImage(
-            image1=image_filenames[0], image2=image_filenames[1],
-            image3=image_filenames[2], image4=image_filenames[3],
-            image5=image_filenames[4], image6=image_filenames[5],
-            house=new_Agent_house
-        )
-
-        # Add new image to session and commit to database
-        db.session.add(new_image)
-        db.session.commit()
-
-        return jsonify({'message': 'Successfully uploaded', 'status': 'success'}), 201
-
-    except Exception as e:
-        print(f"Error: {e}")  # Debugging to see the exact error
-        db.session.rollback()  # Roll back the session in case of an error
-        return jsonify({'error': str(e), 'status': 'fail'}), 500
 
 #############
 @app.route('/displayAgentHouses/<string:agent_id>', methods=['GET'])
