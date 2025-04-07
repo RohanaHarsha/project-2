@@ -95,7 +95,7 @@ class AddHouse extends Component {
     data.append('lat', lat);
     data.append('price', price);
   
-    axios.post('http://127.0.0.1:5000/addAgentHouse', data)
+    axios.post('http://127.0.0.1:5000/agent/addAgentHouse', data)
       .then((response) => {
         // Handle successful response
         this.setState({

@@ -1,0 +1,19 @@
+.add-banner-section {
+    margin: 20px 0;
+  }
+  
+  .add-banner-btn {
+    padding: 10px 20px;
+    background-color: #4b63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-banner-btn:hover {
+    background-color: #354fd0;
+  }
+  

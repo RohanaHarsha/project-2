@@ -107,7 +107,7 @@ class AddHouse extends Component {
       data.append('lat', lat);
       data.append('price', price);
   
-      axios.post('http://127.0.0.1:5000/addLuxuryHouse', data)
+      axios.post('http://127.0.0.1:5000/house/addLuxuryHouse', data)
         .then((response) => {
           console.log(response);
           if (response.status === 201) {

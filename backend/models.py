@@ -182,7 +182,7 @@ class Admin(db.Model):
     name = db.Column(db.String(120), index=True)
     address = db.Column(db.String(120), index=True)
     NIC = db.Column(db.String(20), index=True)  
-    email = db.Column(db.String(150), index=True, unique=True) 
+    email = db.Column(db.String(150), index=True, unique=True)
     TP = db.Column(db.String(20), index=True)  
     username = db.Column(db.String(120), index=True, unique=True)  
     password = db.Column(db.String(120), index=True)

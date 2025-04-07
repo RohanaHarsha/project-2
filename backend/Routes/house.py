@@ -1,17 +1,11 @@
-from flask import Blueprint, Flask, jsonify, request, session, redirect, url_for
+from flask import Blueprint, jsonify, request,current_app
 import os
 from werkzeug.utils import secure_filename
-from flask_marshmallow import Marshmallow
-from flask_cors import CORS
-from models import db, Banner, House, HouseImage, User, Hotel, HotelImage, Agent, Admin, Customer, AgentHouse, AgentHouseImage,PropertyBooking
-from schemas import banner_schema, house_schema, house_image_schema, hotel_schema, hotel_image_schema, agent_schema, customer_schema, Agent_house_schema, Agent_house_image_schema,Property_Booking_Schema
-from flask_bcrypt import Bcrypt
-import re
-import logging
-from datetime import datetime, time
-from flask_mail import Mail, Message
+from models import db, House, HouseImage
+from schemas import house_schema
 
-house_bp = Blueprint('Hoses', __name__)
+
+house_bp = Blueprint('Houses', __name__)
 
 
 @house_bp.route('/addLuxuryHouse', methods=['POST'])
@@ -66,7 +60,7 @@ def upload_luxury_house():
             if image_file:
                 filename = secure_filename(image_file.filename)
                 print(f"Image {i} received: {filename}")
-                image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                image_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
                 image_filenames.append(filename)
             else:
                 print(f"Image {i} not received.")
@@ -84,6 +78,7 @@ def upload_luxury_house():
 
         return {"message": "Luxury house added successfully"}, 200
     except Exception as e:
+        print("heyyyy", e)
         print(f"Error occurred: {e}")
         return {"error": str(e)}, 500
 

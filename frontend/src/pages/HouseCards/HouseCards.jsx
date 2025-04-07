@@ -15,7 +15,7 @@ const HouseDisplay = ({ filterData }) => {
           response = await axios.post('http://127.0.0.1:5000/filter', filterData);
         } else {
           // Otherwise, fetch all default houses (Luxury or Budget based on default)
-          response = await axios.get('http://127.0.0.1:5000/displayHouses/default');
+          response = await axios.get('http://127.0.0.1:5000/house/displayHouses/default');
         }
 
         if (response.data.length > 0) {

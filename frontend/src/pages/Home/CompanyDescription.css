@@ -1,22 +1,54 @@
+/* Main container styling */
 .company-description {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px; /* Adjust as needed */
-  }
-  
-  .description-left {
-    flex: 1; /* Take up remaining space */
-    padding-right: 20px; /* Adjust spacing between text and image */
-  }
-  
-  .description-image-right {
-    flex: 1; /* Take up remaining space */
-    text-align: center; /* Center the image horizontally */
-  }
-  
-  .description-image-right img {
-    max-width: 100%; /* Ensure the image does not exceed its container width */
-    border-radius: 10px; /* Adjust the border-radius to create rounded corners */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+/* Description text at the top */
+.description-text {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.description-text h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.description-text p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+/* Grid container for the images */
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Each grid item */
+.grid-item {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for grid items */
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Image styling */
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

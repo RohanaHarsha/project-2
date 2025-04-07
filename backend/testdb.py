@@ -10,14 +10,14 @@ with app.app_context():
         name="r",
         address="hey",
         NIC=200000000293,
-        email="rhAdmin1331@gmail.com",
+        email="rhAdmin@gmail.com",
         TP=0,
         username= "rohan354789",
         password=bcrypt.generate_password_hash("admin").decode('utf-8'),  # Hash the password before storing
           # Debugging
     )
 
-    print("Hashed Password:", new_admin.password)
+   # print("Hashed Password:", new_admin.password)
     db.session.add(new_admin)
     db.session.commit()
 

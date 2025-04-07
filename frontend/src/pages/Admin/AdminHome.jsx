@@ -1,40 +1,51 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/commen/navbar';
-import HomePageImage1 from '../../img/HomePageImage1.jpg';
+import Navbar from '../../components/commen/sidebar';
+import HomeVid from "../../img/HomeVid.mp4";
 import '../../pages/home.css';
 import LatestProjects from '../../components/LatestProjects';
 import Recent from "../../pages/Home/Recent";
 import Awards from "../../pages/Home/Awards";
 import Description from "../Home/company_description";
+import AddBannerForm from '../bannerAdd';
 
 export default function Home() {
-    const [userId] = useState(null);  // Consider fetching or setting user ID dynamically
+    const [showBannerForm, setShowBannerForm] = useState(false);
+    const toggleBannerForm = () => setShowBannerForm(prev => !prev);
 
     return (
-        <div>
+        <div className="home-layout">
             <Navbar />
-            <div className="imageContainer">
-            <div className="text-container-home">
-                <div className='capitalize-text'>
-                    <h1 className='text-on-image'>Explore<br />Your Dream House<br />With Us</h1>
+
+            <div className="main-content">
+                <div className="imageContainer">
+                    <div className="text-container-home">
+                        <h1 className='text-on-image'>Explore<br />Your Dream House<br />With Us</h1>
+                    </div>
+                    <video
+                        className="homePageImage"
+                        src={HomeVid}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
                 </div>
-            </div>
-                <img className="homePageImage" src={HomePageImage1} alt="Home Page" />
-            </div>
-            <div className='web_body'>
-                <div className="latestProjectsContainer">
-                    <h2>Latest Projects</h2>
-                    <LatestProjects />
-                    <div>
-                        <Recent /><br />
+
+                <div className='web_body'>
+                    <div className="latestProjectsContainer">
+                        <h2>Latest Projects</h2>
+                        <LatestProjects />
+
+                        <button onClick={toggleBannerForm} style={{ marginTop: "20px" }}>
+                            {showBannerForm ? "Hide Banner Form" : "Add New Banner"}
+                        </button>
+
+                        {showBannerForm && <AddBannerForm />}
+
+                        <Recent />
                         <Awards />
                         <Description />
                     </div>
-                    {userId && (
-                        <div>
-                            <h3>Logged in as User ID: {userId}</h3>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

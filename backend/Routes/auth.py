@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request, session
 #from werkzeug.utils import secure_filename
 #from flask_marshmallow import Marshmallow
 #from flask_cors import CORS
-from models import db, User,Agent, Admin, Customer
+from models import db,Agent, Admin, Customer, User
 #from schemas import admin_schema, agent_schema, customer_schema,
 from flask_bcrypt import Bcrypt
 #import re
@@ -32,7 +32,8 @@ def login_user():
         if role not in VALID_ROLES:
             return jsonify({"error": "Invalid role", "status": "fail"}), 400
         
-        print(role)
+        print(f"Role: {role}, Email: {email}")  # Debugging
+
         # Query for the appropriate user based on role
         user = None
         username = None  # Default username as None
@@ -42,28 +43,20 @@ def login_user():
             username = user.username if user else None
         elif role == 'agent':
             user = Agent.query.filter_by(email=email).first()
-            # Agents do not have usernames
-        #elif role == 'user':
-            #user = User.query.filter_by(email=email).first()
-            #username = user.username if user else None
+            username = user.username if user else None  # ✅ Fix for missing username
         elif role == 'user':
             user = Admin.query.filter_by(email=email).first()
-            print("HEY",user)
             username = user.username if user else None
-
-        
-        
-        print("HEY",user,username)
+       # elif role == 'admin':  # ✅ Corrected from 'user' to 'admin'
             
+        
+        print("HEY", user, username)
 
-        # If the user is not found, return an erro
-        if user:
-            print(f"Stored Hash: {user}")
-    
-        if user is None:
+        # If the user is not found, return an error
+        if not user:
             return jsonify({"error": "Email not found", "status": "fail"}), 401
         
-
+        # Check password
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"error": "Invalid password", "status": "fail"}), 402
 
@@ -74,7 +67,7 @@ def login_user():
         return jsonify({
             "id": user.id,
             "email": user.email,
-            "username": username,  # ✅ This avoids the error for 'agent'
+            "username": username,  
             "role": role,
             "status": "success",
             "user_id": session["user_id"],
@@ -85,9 +78,12 @@ def login_user():
         print("ERROR:", str(e))
         return jsonify({"error": str(e), "status": "fail"}), 500
 
-    ##################################################################################
 
-'''@auth_bp.route('/UsersignUp', methods=['POST'])
+
+
+
+
+@auth_bp.route('/UsersignUp', methods=['POST'])
 def UsersignUp():
     try:
         # Retrieve data from the request
@@ -155,4 +151,4 @@ def signUp():
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e), "status": "fail"}), 500'''
+        return jsonify({"error": str(e), "status": "fail"}), 500

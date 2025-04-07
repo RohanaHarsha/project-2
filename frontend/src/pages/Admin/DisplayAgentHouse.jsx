@@ -76,7 +76,7 @@ const DisplayHouse = () => {
       console.error('No images available for this house.');
     }
   
-    axios.post('http://127.0.0.1:5000/addLuxuryHouse', formData, {
+    axios.post('http://127.0.0.1:5000/house/addLuxuryHouse', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

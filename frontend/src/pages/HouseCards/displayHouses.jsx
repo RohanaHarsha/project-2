@@ -15,7 +15,7 @@ const HouseDisplay = () => {
 
   // Function to fetch houses from backend
   const fetchHouses = useCallback(() => {
-    axios.get(`http://127.0.0.1:5000/displayHouses/${houseType}`)
+    axios.get(`http://127.0.0.1:5000/house/displayHouses/${houseType}`)
       .then(response => {
         setFilteredHouses(response.data); // Set all houses initially
       })

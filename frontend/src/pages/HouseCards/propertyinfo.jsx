@@ -6,7 +6,7 @@ import Navbar from '../../components/commen/navbar';
 import 'aframe';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import MapContainer from './googlemap';
-import './propertyinfo.css';
+//import './propertyinfo.css';
 import defimg from '../../img/1st.jpg';
 import PopupModal from "./PopupModal";
 import Footer from '../../components/Footer/footer';
@@ -80,7 +80,7 @@ const HouseDisplay = () => {
     console.log(bookingData);
 
     // Send the booking request to the backend
-    axios.post('http://127.0.0.1:5000/addBooking', bookingData)
+    axios.post('http://127.0.0.1:5000booking/addBooking', bookingData)
       .then(response => {
         alert("Booking successful!"); // Notify the user of success
         handleCloseDialog(); // Close the dialog

@@ -40,55 +40,5 @@ def send_email():
         logging.error(f"Error sending email: {str(e)}")
         return jsonify({"error": "Failed to send email", "details": str(e)}), 500
 
-@main_bp.route('/addLuxuryHouse', methods=['POST'])
-def upload_luxury_house():
-    try:
-        form = request.form
 
-        new_house = House(
-            houseType=form['houseType'],
-            district=form['district'].lower(),
-            address=form['address'],
-            no_of_rooms=form['no_of_rooms'],
-            no_of_bathrooms=form['no_of_bathrooms'],
-            land_size=form['land_size'],
-            distance=form['distance'],
-            storey=form['storey'],
-            keyWord=form['keyWord'],
-            description=form['description'],
-            price=form['price'],
-            lat=form['lat'],
-            lng=form['lng']
-        )
-
-        db.session.add(new_house)
-        db.session.commit()
-
-        # Handle images
-        image_filenames = []
-        upload_folder = current_app.config['UPLOAD_FOLDER']
-        for i in range(1, 7):
-            image_file = request.files.get(f'image{i}')
-            if image_file and allowed_file(image_file.filename):
-                filename = secure_filename(image_file.filename)
-                image_file.save(os.path.join(upload_folder, filename))
-                image_filenames.append(filename)
-            else:
-                image_filenames.append(None)
-
-        new_image = HouseImage(
-            image1=image_filenames[0],
-            image2=image_filenames[1],
-            image3=image_filenames[2],
-            image4=image_filenames[3],
-            image5=image_filenames[4],
-            image6=image_filenames[5],
-            house=new_house
-        )
-        db.session.add(new_image)
-        db.session.commit()
-
-        return jsonify({"message": "Luxury house added successfully"}), 200
-    except Exception as e:
-        current_app.logger.error(f"Error occurred: {e}")
-        return jsonify({"error": str(e)}), 500
+ 

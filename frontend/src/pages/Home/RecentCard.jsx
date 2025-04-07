@@ -14,7 +14,7 @@ const RecentCard = () => {
 
   // Method to fetch houses from the backend
   const fetchHouses = () => {
-    axios.get('http://127.0.0.1:5000/displayRecentCard')
+    axios.get('http://127.0.0.1:5000/app/displayRecentCard')
       .then(response => {
         setHouses(response.data);
       })

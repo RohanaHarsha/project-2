@@ -21,7 +21,7 @@ class AllBookings extends Component {
 
     // Fetch all bookings from the API
     fetchAllBookings = () => {
-        axios.get('http://127.0.0.1:5000/getBookingDetails')
+        axios.get('http://127.0.0.1:5000/booking/getBookingDetails')
             .then((response) => {
                 console.log('Booking details:', response.data);
                 this.setState({ bookings: response.data });
@@ -33,7 +33,7 @@ class AllBookings extends Component {
 
     // Confirm a booking
     confirmBooking = (bookingId) => {
-        axios.post(`http://127.0.0.1:5000/confirmBooking/${bookingId}`)
+        axios.post(`http://127.0.0.1:5000/booking/confirmBooking/${bookingId}`)
             .then((response) => {
                 console.log('Booking confirmed:', response.data);
                 this.fetchAllBookings(); // Refresh the list after action
@@ -45,7 +45,7 @@ class AllBookings extends Component {
 
     // Delete a booking
     deleteBooking = (bookingId) => {
-        axios.delete(`http://127.0.0.1:5000/deleteBooking/${bookingId}`)
+        axios.delete(`http://127.0.0.1:5000/booking/deleteBooking/${bookingId}`)
             .then((response) => {
                 console.log('Booking deleted:', response.data);
                 this.fetchAllBookings(); // Refresh the list after deletion

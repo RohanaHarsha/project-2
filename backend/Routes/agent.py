@@ -13,6 +13,7 @@ from werkzeug.utils import secure_filename
 
 
 agent_bp = Blueprint('agent',__name__)
+bcrypt = Bcrypt()
 
 
 

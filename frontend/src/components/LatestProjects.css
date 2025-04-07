@@ -1,17 +1,89 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align items at the top */
-    height: 100vh; /* Full height of the viewport */
+.latest-project-container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 10px;
+  position: relative; /* For absolute positioning of preview containers */
+}
+
+.banner-wrapper {
+  position: relative; /* Establishes positioning context for previews */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main banner styling */
+.main-banner {
+  width: 70%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 2;         /* Ensures main banner overlaps previews */
+  position: relative; /* Needed for stacking context */
+}
+
+.main-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Preview banner styling (left & right) */
+.preview {
+  width: 18%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute; /* Positioned relative to banner-wrapper */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Position left preview: partially hidden under the main banner */
+.preview.left {
+  left: -50px; /* Adjust this value to control how much is visible */
+}
+
+/* Position right preview: partially hidden under the main banner */
+.preview.right {
+  right: -50px;
+}
+
+/* Hover effects for preview containers */
+.preview:hover {
+  transform: translateY(-50%) scale(1.05);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .main-banner {
+    width: 90%;
+    height: 250px;
   }
-  
-  .latestProjectBanner {
-    width: 80%;
-    margin-top: 20px; /* Adjust this value to change the space at the top */
+
+  .preview {
+    width: 40%;
+    height: 150px;
   }
-  
-  .carousel-image {
-    height: 100%; /* Set a specific height for the carousel images */
-    object-fit: cover; /* Ensure the images cover the entire carousel item */
+
+  .preview.left {
+    left: -30px;
   }
-  
+
+  .preview.right {
+    right: -30px;
+  }
+}

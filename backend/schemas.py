@@ -2,9 +2,15 @@
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow.fields import Nested
-from models import Banner, House, HouseImage,User,Hotel,HotelImage,Agent,Customer,AgentHouse,AgentHouseImage,PropertyBooking
+from models import Admin, Banner, House, HouseImage,User,Hotel,HotelImage,Agent,Customer,AgentHouse,AgentHouseImage,PropertyBooking
 
 ma = Marshmallow()
+
+
+class AdminSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Admin  
+        fields = ('id', 'name', 'address', 'NIC', 'email', 'TP','username','password')
 
 class BannerSchema(SQLAlchemyAutoSchema):
     class Meta:
@@ -78,6 +84,9 @@ class PropertyBookingSchema(SQLAlchemyAutoSchema):
         model = PropertyBooking
         fields = ('id', 'house_id', 'user_id', 'booking_date', 'booking_time', 'status')
 
+
+
+admin_schema = AdminSchema(many=True)  # Allow returning multiple admins
 banner_schema = BannerSchema(many=True)
 house_schema = HouseSchema(many=True)
 house_image_schema = HouseImageSchema(many=True)

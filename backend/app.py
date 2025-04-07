@@ -641,7 +641,7 @@ if __name__ == '__main__':
 
 
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from schemas import HouseSchema
 from config import Config
 from flask_cors import CORS
@@ -649,6 +649,9 @@ from models import House, db
 from flask_mail import Mail
 from flask_bcrypt import Bcrypt
 import logging
+from flask import current_app
+
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -667,14 +670,83 @@ from Routes.banner import banner_bp
 from Routes.agent import agent_bp
 from Routes.hotel import hotel_bp
 from Routes.auth import auth_bp
-from Routes.main import main_bp  # Import main_bp from Routes/main.py
+from Routes.main import main_bp  
+from Routes.house import house_bp  
+from schemas import house_schema
 
 app.register_blueprint(banner_bp, url_prefix="/banner")
 app.register_blueprint(agent_bp, url_prefix="/agent")
 app.register_blueprint(hotel_bp, url_prefix="/hotels")
 app.register_blueprint(auth_bp, url_prefix="/auth")
-app.register_blueprint(main_bp)  # No prefix needed unless you want one
+app.register_blueprint(house_bp, url_prefix="/house")
+app.register_blueprint(main_bp)  
 
+
+@app.route('/displayHouses/<string:houseType>', methods=['GET'])
+def displayHouses(houseType):
+    try:
+        houses = House.query.filter_by(houseType=houseType).order_by(House.upload_time.desc()).all()
+        results = house_schema.dump(houses) 
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({"error": str(e), "status": "fail"}), 500
+    
+
+
+@app.route('/displayHouse', methods=['POST'])
+def get_house():
+    try:
+        data = request.get_json()
+        print("Request data:", data)  # Log the incoming request data
+
+        # Extract the house ID
+        id = data.get('id')
+
+        house = House.query.filter(House.id==id)
+
+        if not house:
+            return jsonify({"error": "House not found"}), 401
+        
+        house_data = house_schema.dump(house)
+        print("House Data Type:", type(house_data))  # Check the type
+        print("House Data:", house_data)  # Log the data
+
+        # Check if house_data is a list and access the first item if necessary
+        if isinstance(house_data, list) and len(house_data) > 0:
+            house_data = house_data[0]  # Get the first (and only) element
+
+        house_data = {
+            'id': house_data['id'],
+            'address': house_data['address'],
+            'district': house_data['district'],
+            'houseType': house_data['houseType'],
+            'no_of_rooms': house_data['no_of_rooms'],
+            'no_of_bathrooms': house_data['no_of_bathrooms'],
+            'land_size': house_data['land_size'],
+            'distance': house_data['distance'],
+            'storey': house_data['storey'],
+            'keyWord': house_data['keyWord'],
+            'description': house_data['description'],
+            'price': house_data['price'],
+            'lat': house_data['lat'],
+            'lng': house_data['lng'],
+            'images':  [
+                {
+                    'image1': img['image1'],
+                    'image2': img['image2'],
+                    'image3': img['image3'],
+                    'image4': img['image4'],
+                    'image5': img['image5'], 
+                    'image6': img['image6']
+                }
+                for img in house_data['images']
+            ]
+        }
+        print("housedata: ", house_data)
+        return jsonify(house_data), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+        
 @app.route('/displayRecentCard', methods=['GET'])
 def displayRecentCard():
     try:

@@ -1,160 +1,169 @@
-/* .footerContact {
-    background-color: #27ae60;
-    padding: 40px 0;
-    color: #fff;
+/* =========================
+   1) General Wrapper
+   ========================= */
+   .footer-wrapper {
+    background: #1b1b1b; /* dark background */
+    color: #fff;         /* white text */
+    font-family: Arial, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 0;
   }
-  .footerContact h1 {
-    font-size: 40px;
+  
+  /* =========================
+     2) Top Call-To-Action (CTA)
+     ========================= */
+  .footer-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    background: #222;  /* slightly lighter or darker than main */
+    flex-wrap: wrap;
   }
-  footer {
-    background-color: #1d2636;
-    padding: 50px 0;
-    color: #fff;
+  
+  .footer-cta-content h1 {
+    font-size: 2rem;
+    margin: 0;
   }
-  footer .container {
-    display: grid;
-    grid-template-columns: 6fr 2fr 2fr 1fr;
-    grid-gap: 20px;
+  
+  .footer-cta-content p {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
   }
-  .footerimg {
-    width: 150px;
+  
+  .footer-cta-button {
+    background: #ffcc00;
+    color: #000;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-left: 20px; /* Some space between text and button */
   }
-  footer h2 {
-    font-weight: 500;
+  
+  .footer-cta-button:hover {
+    background: #e6b800;
   }
-  footer p {
-    color: grey;
-    margin: 20px 0;
-  }
-  footer input {
-    background-color: #fff;
-    padding: 17px;
-    width: 100%;
-    border-radius: 5px;
-  }
-  footer h3 {
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-  footer ul {
-    display: block;
-  }
-  footer ul li {
-    display: block;
-    color: grey;
-    margin-bottom: 20px;
-  }
-  .legal {
-    text-align: center;
-    padding: 20px;
-    background: #1d2636;
-    color: rgba(255, 255, 255, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  @media screen and (max-width: 800px) {
-    footer .container {
-      grid-template-columns: repeat(2, 1fr);
+  
+  /* Responsive CTA */
+  @media (max-width: 768px) {
+    .footer-cta {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-cta-button {
+      margin: 20px 0 0;
     }
   }
   
-
-
-
- */
-
-
-
-
-.footer-text h1{
-  color: #fff;
-} 
-.footer-footer-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* 4 equal columns */
-  gap: 20px;  /* Space between columns */
-  padding: 20px 0;
-  background-color: #23272d;
-}
-
-.footer-footer-column {
-  color: #fff;
-  text-align: left;
-  padding-left: 10%;
-}
-
-.footer-footer-column h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #ffcc00;  /* Optional: Highlight the section title */
-}
-
-.footer-footer-column ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-footer-column ul li {
-  margin-bottom: 8px;
-  font-size: 10px;
-  color: rgb(105, 216, 216);
-  line-height: 0.99;
-}
-
-/* Logo column with centered image */
-.footer-logo-column {
-  grid-column: span 1; /* Take up two columns */
-  text-align: left;
-}
-
-.footer-footerimg {
-  width: 60px;
-  margin-bottom: 10px;
-}
-
-.footer-input.footer-flex {
-  display: flex;
-  margin-top: 10px;
-}
-
-.footer-input input {
-  padding: 6px 26px;
-  margin: 4px 3px;
-  border: none;
-  border-radius: 26px;
-  outline: none;
-}
-
-.footer-input button {
-  padding: 8px 1px;
-  background-color: #ffcc00;
-  border: none;
-  cursor: pointer;
-  font-size: 12px;
-  margin: 2% 4%;
-  padding: 3% 3%;
-}
-
-.footer-legal {
-  text-align: center;
-  padding: 10px;
-  background: #111;
-  color: #aaa;
-}
-
-.footer-footerContact {
-  background: #222;
-  color: #fff;
-}
-
-.footer-send.footer-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-btn5 {
-  background-color: #ffcc00;
-  color: #000;
-  padding: 10px 20px;
-  cursor: pointer;
-}
+  /* =========================
+     3) Main Footer Content
+     ========================= */
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 40px 10%;
+    background: #1b1b1b;
+  }
+  
+  /* For smaller screens, reduce columns */
+  @media (max-width: 992px) {
+    .footer-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 576px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Brand Section */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-logo {
+    width: 60px;
+    margin-bottom: 10px;
+    border-radius: 50%; /* optional if you want a round logo */
+  }
+  
+  .footer-brand-text {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* Subscribe Form */
+  .footer-subscribe {
+    display: flex;
+    width: 100%;
+  }
+  
+  .footer-subscribe input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 0.9rem;
+  }
+  
+  .footer-subscribe button {
+    background: #ffcc00;
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+  }
+  
+  .footer-subscribe button:hover {
+    background: #e6b800;
+  }
+  
+  /* Footer Columns */
+  .footer-column h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #ffcc00;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  
+  .footer-column ul li:hover {
+    color: #ffcc00;
+  }
+  
+  /* =========================
+     4) Footer Legal
+     ========================= */
+  .footer-legal {
+    background: #111;
+    text-align: center;
+    padding: 15px;
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
