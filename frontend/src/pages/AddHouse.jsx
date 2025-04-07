@@ -41,7 +41,7 @@ class AddHouse extends Component {
   }
 
   fetchHouses = () => {
-    axios.get('http://127.0.0.1:5000/displayHouses')
+    axios.get('http://127.0.0.1:5000/house/displayHouses')
       .then((response) => {
         console.log(response.data);
         this.setState({ houses: response.data });
@@ -185,7 +185,7 @@ class AddHouse extends Component {
 
     return (
       <div>
-        <Navbar />
+      
         <div className='body'>
           <form onSubmit={this.submitHandler} encType="multipart/form-data" id="houseForm">
             {responseMsg.status === 'success' && <div style={{ color: 'green' }}>{responseMsg.message}</div>}

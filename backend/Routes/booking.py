@@ -18,7 +18,7 @@ def get_bookings():
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
 
-@booking_bp.route('/addBooking', methods=['POST'])
+@booking_bp.route('/addBooking', methods=['POST','OPTIONS'])
 def add_booking():
     try:
         # Extract data from the request

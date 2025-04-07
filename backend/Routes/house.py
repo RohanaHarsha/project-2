@@ -90,7 +90,17 @@ def houses():
         results = house_schema.dump(all_houses)
         return jsonify(results), 200
     except Exception as e:
-        return jsonify({"error": str(e), "status": "fail"}), 500        
+        return jsonify({"error": str(e), "status": "fail"}), 500     
+
+
+@house_bp.route('/displayHouses/<string:houseType>', methods=['GET'])
+def displayHouses(houseType):
+    try:
+        houses = House.query.filter_by(houseType=houseType).order_by(House.upload_time.desc()).all()
+        results = house_schema.dump(houses) 
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({"error": str(e), "status": "fail"}), 500       
 
 ########################################################################################
 @house_bp.route('/displayHouse', methods=['POST'])

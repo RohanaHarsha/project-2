@@ -649,12 +649,14 @@ from models import House, db
 from flask_mail import Mail
 from flask_bcrypt import Bcrypt
 import logging
+from flask_cors import CORS
 from flask import current_app
 
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)
 CORS(app, supports_credentials=True)
 
 # Initialize extensions
@@ -747,14 +749,20 @@ def get_house():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
         
-@app.route('/displayRecentCard', methods=['GET'])
+@app.route('/app/displayRecentCard', methods=['GET'])
 def displayRecentCard():
     try:
-        first_ten_houses = House.query.order_by(House.upload_time.desc()).limit(6).all()
-        results = HouseSchema.dump(first_ten_houses)
+        # Get the recent 6 houses
+        first_six_houses = House.query.order_by(House.upload_time.desc()).limit(6).all()
+
+        # Instantiate schema with many=True
+        schema = HouseSchema(many=True)
+
+        # Serialize the list of house objects
+        results = schema.dump(first_six_houses)
+
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
-
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,10 +7,14 @@ import Recent from "../../pages/Home/Recent";
 import Awards from "../../pages/Home/Awards";
 import Description from "../Home/company_description";
 import AddBannerForm from '../bannerAdd';
+import AddHouse from '../AddHouse';
 
 export default function Home() {
     const [showBannerForm, setShowBannerForm] = useState(false);
     const toggleBannerForm = () => setShowBannerForm(prev => !prev);
+    
+    const [showHouseForm, setShowHouseForm] = useState(false);
+    const toggleHouseForm = () => setShowHouseForm(prev => !prev);
 
     return (
         <div className="home-layout">
@@ -19,7 +23,9 @@ export default function Home() {
             <div className="main-content">
                 <div className="imageContainer">
                     <div className="text-container-home">
-                        <h1 className='text-on-image'>Explore<br />Your Dream House<br />With Us</h1>
+                        <h1 className='text-on-image'>
+                            Explore<br />Your Dream House<br />With Us
+                        </h1>
                     </div>
                     <video
                         className="homePageImage"
@@ -36,15 +42,14 @@ export default function Home() {
                         <h2>Latest Projects</h2>
                         <LatestProjects />
 
-                        <button onClick={toggleBannerForm} style={{ marginTop: "20px" }}>
-                            {showBannerForm ? "Hide Banner Form" : "Add New Banner"}
-                        </button>
+                
+                        {showHouseForm && 
+                            <AddHouse 
+                                userId={"admin_id"} 
+                                user_email={"admin_email@example.com"} 
+                            />
+                        }
 
-                        {showBannerForm && <AddBannerForm />}
-
-                        <Recent />
-                        <Awards />
-                        <Description />
                     </div>
                 </div>
             </div>

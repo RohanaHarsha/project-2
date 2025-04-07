@@ -43,7 +43,10 @@ const HouseDisplay = () => {
     <div>
       <Navbar /> {/* Render Navbar component */}
       <LatestProjects /> {/* Render LatestProjects component */}
+      <div>
       <Filter houseType={houseType} onFilter={updateFilteredHouses} /> {/* Pass houseType and update function */}
+      </div>
+      
       <div className='house-display-content grid3 mtop'>
         {filteredHouses.length > 0 ? (
           filteredHouses.map((house, index) => {

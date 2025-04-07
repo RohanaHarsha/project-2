@@ -1,6 +1,8 @@
 import React from 'react';
-import description_image from '../../img/description.jpeg';
-import './CompanyDescription.css'; // Import your CSS file for styling
+import Renovate1 from  '../../img/Renovate1.jpg';
+import Renovate2 from '../../img/Renovate2.jpg';
+import Renovate3 from  '../../img/Renovate3.jpg';
+import './CompanyDescription.css'; 
 
 const CompanyDescription = () => {
   return (
@@ -13,13 +15,13 @@ const CompanyDescription = () => {
       </div>
       <div className="company-grid">
         <div className="grid-item">
-          <img src={description_image} alt="Renovation 1" />
+          <img src={Renovate1} alt="Renovation 1" />
         </div>
         <div className="grid-item">
-          <img src={description_image} alt="Renovation 2" />
+          <img src={Renovate2} alt="Renovation 2" />
         </div>
         <div className="grid-item">
-          <img src={description_image} alt="Renovation 3" />
+          <img src={Renovate3} alt="Renovation 3" />
         </div>
       </div>
     </div>

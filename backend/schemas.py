@@ -29,6 +29,8 @@ class HouseSchema(SQLAlchemyAutoSchema):
     
     class Meta:
         model = House
+        include_relationships = True
+        load_instance = True
         fields = ('id', 'houseType', 'district', 'address', 'no_of_rooms', 'no_of_bathrooms',
                   'land_size', 'distance', 'description','price','lat','lng', 'upload_time', 'images', 'storey', 'keyWord')
         
@@ -86,7 +88,7 @@ class PropertyBookingSchema(SQLAlchemyAutoSchema):
 
 
 
-admin_schema = AdminSchema(many=True)  # Allow returning multiple admins
+admin_schema = AdminSchema(many=True)  
 banner_schema = BannerSchema(many=True)
 house_schema = HouseSchema(many=True)
 house_image_schema = HouseImageSchema(many=True)

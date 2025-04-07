@@ -55,8 +55,7 @@ export default function Home() {
           <button
             type="submit"
             style={{ borderRadius: "30px", padding: "5px" }}
-          >
-            Search
+          >Search
           </button>
         </form>
       </div>
