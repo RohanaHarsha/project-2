@@ -117,8 +117,8 @@ const Signup = () => {
                 {/* Sign Up Form */}
                 <div className="form-container sign-up-container">
                     <form className='form' onSubmit={handleSignUp}>
-                        <h1>Create Account</h1>
-                        <span>or use your email for registration</span>
+                        <h2>Create An Account</h2>
+                     
                         <input 
                             className='input' 
                             type="text" 
@@ -171,12 +171,8 @@ const Signup = () => {
                 <div className="form-container sign-in-container">
                     <form className='form' onSubmit={handleSignIn}>
                         <h1>Sign in</h1>
-                        <div className="social-container">
-                            <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                            <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                            <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <span>or use your account</span>
+                        
+                        
                         <input 
                             className='input' 
                             type="email" 
@@ -240,12 +236,12 @@ const Signup = () => {
                 <div className="overlay-container">
                     <div className="overlay">
                         <div className="overlay-panel overlay-left">
-                            <h1>Welcome Back!</h1>
+                            <h1>Sign In for Your Account</h1>
                             <p className='p'>To keep connected with us please login with your personal info</p>
                             <button className="ghost" id="signIn" onClick={togglePanel}>Sign In</button>
                         </div>
                         <div className="overlay-panel overlay-right">
-                            <h1>Hello, Friend!</h1>
+                            <h1>Create A New Account</h1>
                             <p className='p'>Enter your personal details and start your journey with us</p>
                             <button className="ghost" id="signUp" onClick={togglePanel}>Sign Up</button>
                         </div>
