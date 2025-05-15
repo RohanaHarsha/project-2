@@ -18,7 +18,7 @@ export default function Home() {
             <h1 className="text-on-image">
               Explore
               <br />
-              Your Dream House
+              Your Dream Home
               <br />
               With Us
             </h1>

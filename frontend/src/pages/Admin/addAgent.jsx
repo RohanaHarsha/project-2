@@ -121,7 +121,7 @@ export default function AddAgent() {
 
   return (
     <div>
-      <Navbar />
+     
       <div className='body'>
         <form onSubmit={submitHandler} id="agentForm">
           {responseMsg.status === 'success' && <div style={{ color: 'green' }}>{responseMsg.message}</div>}

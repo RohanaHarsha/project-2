@@ -6,6 +6,7 @@ import BannerAdd from './pages/bannerAdd';
 import AddHouse from './pages/AddHouse';
 import About from './pages/About/About';
 import Login from './pages/login/signup';
+import Layout from "./components/commen/layout";
 import Hotels from './pages/hotels'
 import AdminHome from './pages/Admin/AdminHome';
 import Lands from './pages/Lands'
@@ -31,14 +32,19 @@ function App() {
           <Route path="/bannerAdd" element={<BannerAdd />} />
           <Route path="/addHouse" element={<AddHouse />} />
           <Route path="/login" element={<Login />} />
+
           <Route path="/AdminHome" element={<AdminHome />} />
           <Route path="/Hotel" element={<Hotels />} />
           <Route path="/Lands" element={<Lands />} />
           <Route path="/about" element={<About />} />
           <Route path="/logout" element={<Home />} />
+          <Route path="/" element={<Layout />}>
           <Route path="/addHotel" element={<AddHotels />} />
           <Route path="/addAgent" element={<AddAgent />} />
           <Route path="/AgentHome" element={<AgentHome />} />
+          
+        </Route>
+          
           <Route path="/signup" element={<Signup />} />
           <Route path="/displayAgentHouse" element={<DisplayAgentHouse />} />
           <Route path="/propertyinfo/:id" element = {<Propertyinfo/>}/>

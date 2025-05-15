@@ -161,7 +161,7 @@ class AddHotel extends Component {
 
     return (
       <div>
-        <Navbar />
+        
         <div className='body'>
           <form onSubmit={this.submitHandler} encType="multipart/form-data" id="hotelForm">
             {responseMsg.status === 'success' && <div style={{ color: 'green' }}>{responseMsg.message}</div>}
@@ -229,7 +229,7 @@ class AddHotel extends Component {
                     /><br />
                   </Col>
                   <Col>
-                    <label htmlFor="keyWord">Key word</label><br />
+                    <label htmlFor="keyWord">Keyword</label><br />
                     <input
                       type="text"
                       name="keyWord"

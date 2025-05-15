@@ -60,7 +60,7 @@ export default function Navbar() {
             </li>
             {sessionuserRole === "agent" && (
               <>
-                <li><Link to="/bannerAdd">Add Banner</Link></li>
+                <li><Link to="/bannerAdd">Add Bannerrrr</Link></li>
                 <li><Link to="/addHouseForAdmin">Add House</Link></li>
               </>
             )}

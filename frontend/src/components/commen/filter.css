@@ -4,13 +4,13 @@
   background: white;
   padding: 0.75rem 1rem;
   border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 150px rgba(0, 0, 0, 0.1);
   flex-wrap: nowrap; /* keep all in one row */
   align-items: center;
+
 }
 
-.filterForm select,
-.filterForm input {
+.filterForm select , .filterForm input {
   border: 1px solid #ddd;
   border-radius: 30px;
   padding: 0.5rem 1rem;
@@ -23,7 +23,7 @@
 
 .filterForm button {
   padding: 0.5rem 1.5rem;
-  background-color: #6c63ff;
+  background-color: #6c78ff;
   color: white;
   font-weight: bold;
   border: none;

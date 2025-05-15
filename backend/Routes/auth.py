@@ -47,10 +47,9 @@ def login_user():
         elif role == 'user':
             user = Admin.query.filter_by(email=email).first()
             username = user.username if user else None
-       # elif role == 'admin':  # ✅ Corrected from 'user' to 'admin'
-            
+       
         
-        print("HEY", user, username)
+       
 
         # If the user is not found, return an error
         if not user:
@@ -104,11 +103,11 @@ def UsersignUp():
         new_user = Customer(name=name, email=email, TP=tp, username=username, password=hashed_password)
 
         
-        # Add new user to the session and commit to the database
+        #Add new user to the session and commit to the database
         db.session.add(new_user)
         db.session.commit()
         
-        # Optionally, store user ID in session (if you want to manage sessions)
+        #Optionally, store user ID in session (if you want to manage sessions)
         session["user_id"] = new_user.id
         
         return jsonify({
@@ -118,7 +117,7 @@ def UsersignUp():
         }), 201
 
     except Exception as e:
-        print(e)  # Log the exception for debugging purposes
+        print(e)  #Log the exception for debugging purposes
         return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
     
 

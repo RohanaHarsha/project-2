@@ -24,7 +24,7 @@ export default function Home() {
                 <div className="imageContainer">
                     <div className="text-container-home">
                         <h1 className='text-on-image'>
-                            Explore<br />Your Dream House<br />With Us
+                            Explore<br />Your Dream Home<br />With Us
                         </h1>
                     </div>
                     <video

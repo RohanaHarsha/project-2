@@ -14,7 +14,8 @@ export default function Sidebar() {
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    navigate("/login");
+    navigate("/login", { replace: true }); // Ensure it redirects properly to login
+    window.location.reload(); // Optional: force full reload to reset UI
   };
 
   return (
@@ -39,7 +40,7 @@ export default function Sidebar() {
               <Link to="/">🏠 Home</Link>
             </li>
             <li>
-              <Link to="/my-bookings">📑 My Bookings</Link>
+              <Link to="/my-bookings" >📑 My Bookings</Link>
             </li>
           </>
         )}
@@ -72,9 +73,7 @@ export default function Sidebar() {
             <li>
               <Link to="/addAgent">🧑‍💼 Add Agent</Link>
             </li>
-            <li>
-              <Link to="/bookings">📆 Bookings</Link>
-            </li>
+           
           </>
         )}
       </ul>

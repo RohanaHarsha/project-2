@@ -623,14 +623,7 @@ def delete_Agent_house(id):
         db.session.rollback()
         return jsonify({"error": str(e), "status": "fail"}), 500
 #############
-@app.route('/displayAllAgentHouse', methods=['GET'])
-def display_all_agent_house():
-    try:
-        all_images = AgentHouse.query.all()  # Fetch all agent houses from the database
-        results = Agent_house_schema.dump(all_images)  # Serialize the results
-        return jsonify(results), 200  # Return JSON response
-    except Exception as e:
-        return jsonify({"error": str(e), "status": "fail"}), 500  # Handle errors
+
 
 
 

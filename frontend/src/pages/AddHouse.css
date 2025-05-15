@@ -1,15 +1,40 @@
-.body{
-    margin-left: 10px;
+.body {
+  max-width: 100%;
+  padding: 20px;
 }
+
+.bodyProperties {
+  margin-bottom: 30px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .custom-container {
-    margin-left: 0; /* Adjust left margin as needed */
-    margin-right: 0; /* Adjust right margin as needed */
-    padding-left: 0; /* Optionally adjust left padding */
-    padding-right: 0; /* Optionally adjust right padding */
-  }
-  .bodyProperties {
-    border: 3px solid #444444;
-    padding: 20px;
-    margin: 5px;
-  }
-  
+  max-width: 100%;
+  max-height: 100%;
+}
+
+form .form-control {
+  width: 100%;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+table {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
