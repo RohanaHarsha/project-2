@@ -268,20 +268,6 @@ const Propertyinfo = ({ onBookNowClick }) => {
               />
             </div>
 
-            {/* 3D Sky View 2 */}
-            <div className="scene-container">
-              <a-scene embedded style={{ width: "100%", height: "100%" }}>
-                <a-sky
-                  src={
-                    house.images && house.images[0]
-                      ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image6}`
-                      : defimg
-                  }
-                  rotation="0 -130 0"
-                ></a-sky>
-              </a-scene>
-            </div>
-
             {/* Popup Modal */}
             <PopupModal
               isOpen={isOpen}
