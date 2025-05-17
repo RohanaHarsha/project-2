@@ -4,10 +4,6 @@ from flask import Blueprint, Flask, jsonify, request
 from models import Agent, AgentHouse, AgentHouseImage, db
 from schemas import  agent_schema
 from flask_bcrypt import Bcrypt
-import re
-import logging
-from datetime import datetime, time
-from flask_mail import Mail, Message
 from config import Config
 from werkzeug.utils import secure_filename
 
