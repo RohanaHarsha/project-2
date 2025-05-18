@@ -81,15 +81,6 @@ const HouseDisplay = () => {
       })
       .catch((error) => {
         console.error("There was an error making the booking:", error);
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.error
-        ) {
-          alert(`Booking failed: ${error.response.data.error}`);
-        } else {
-          alert("Booking failed. Please try again.");
-        }
       });
   };
 
@@ -186,21 +177,6 @@ const Propertyinfo = ({ onBookNowClick }) => {
         </div>
         <div className="gallery">
           <div className="gallery">
-            {/* 3D Sky View 1 */}
-            <div className="scene-container">
-              <a-scene embedded style={{ width: "100%", height: "100%" }}>
-                <a-sky
-                  src={
-                    house.images && house.images[0]
-                      ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image5}`
-                      : defimg
-                  }
-                  rotation="0 -130 0"
-                ></a-sky>
-              </a-scene>
-            </div>
-
-            {/* 2D Image 1 */}
             <div>
               <img
                 src={
@@ -276,18 +252,6 @@ const Propertyinfo = ({ onBookNowClick }) => {
             />
           </div>
 
-          <div className="scene-container">
-            <a-scene embedded style={{ width: "100%", height: "100%" }}>
-              <a-sky
-                src={
-                  house.images?.[0]?.image6
-                    ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image6}`
-                    : defimg
-                }
-                rotation="0 -130 0"
-              ></a-sky>
-            </a-scene>
-          </div>
           <PopupModal
             isOpen={isOpen}
             onRequestClose={closeModal}
@@ -295,7 +259,7 @@ const Propertyinfo = ({ onBookNowClick }) => {
           />
         </div>
         <div className="details">
-          <h2>Managed by Daffodillzone (PVT)LTD</h2>
+          <h2>Daffodillzone (PVT)LTD</h2>
           <p>
             <b>100% settled proof &nbsp;</b>
           </p>
@@ -304,66 +268,61 @@ const Propertyinfo = ({ onBookNowClick }) => {
           </h4>
         </div>
         <hr className="line" />
+        
+      
+        <hr className="line" />
+        <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
+          <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
+            {/* Property Highlights */}
+            <div className="property_highlights">
+              <h2 className="text-xl font-semibold mb-2 text-black">
+                 Property Highlights
+              </h2>
+              <ul className="list-disc pl-6 text-gray-800">
+                <li>Type: {house.houseType || "Not mentioned"}</li>
+                <li>District: {house.district || "Not mentioned"}</li>
+                <li>Address: {house.address || "Not mentioned"}</li>
+              </ul>
+            </div>
+
+            {/* Property Features */}
+            <div className="property_features">
+              <h2 className="text-xl font-semibold mb-2 text-black">
+                 Property Features
+              </h2>
+              <ul className="list-disc pl-6 text-gray-800">
+                <li>{house.no_of_rooms || "Not mentioned"} Bed Rooms</li>
+                <li>{house.no_of_bathrooms || "Not mentioned"} Bathrooms</li>
+                <li>{house.land_size || "Not mentioned"} sqm<sup>2</sup></li>
+                <li>{house.distance || "Not mentioned"} To The Nearest City</li>
+                <li>{house.storey || "Not mentioned"} Storey</li>
+               
+              </ul>
+            </div>
+
+            {/* Property Description */}
+            <div className="property_description">
+              <h2 className="text-xl font-semibold mb-2 text-black">
+                 Property Description
+              </h2>
+              <p className="text-justify text-gray-800">
+                {house.description ||
+                  "No additional description provided by the seller."}
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr className="line" />
         <button className="btn btn-primary">
           <a href={`tel:${house.phone_number}`} className="call-button">
             Call Now
           </a>
         </button>
         &nbsp;&nbsp;
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => onBookNowClick(house)}
-        >
-          <b>Set Appointment</b>
-        </button>
-        <hr className="line" />
-        <div className="capitalize house_description">
-          <h2>Description</h2>
-          <br />• {house.houseType || "Type Not mentioned"}
-          <br />• {house.district || "Not mentioned"} district
-          <br />• {house.address || "Not mentioned"}
-          <br />• {house.no_of_rooms || "Not mentioned"} rooms
-          <br />• {house.no_of_bathrooms || "Not mentioned"} bathrooms
-          <br />• Land Size {house.land_size || "Not mentioned"} perch
-          <br />• {house.distance || "Not mentioned"} km to the city
-          <br />• {house.storey || "Not mentioned"} storey
-          <br />• Power and water supply
-          <br />• Lighting system and fan fittings
-          <br />• All necessary facilities within 150m range.
-          <br />• Other: {house.description || "Not mentioned"}
-        </div>
-        <hr className="line" />
-      </div>
-
-      <div className="map">
-        <MapContainer lat={house.lat} lng={house.lng} />
-      </div>
-      <div
-        className="map-button"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "20px 0",
-        }}
-      >
-        <button
-          className="btn btn-primary"
-          onClick={() =>
-            window.open(
-              `https://www.google.com/maps?q=${house.lat || 6.982641},${
-                house.lng || 81.076837
-              }`,
-              "_blank"
-            )
-          }
-        >
-          View on Google Maps
-        </button>
       </div>
       <Footer />
     </div>
+
   );
 };
 

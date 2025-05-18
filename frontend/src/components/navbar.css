@@ -12,6 +12,14 @@
     font-weight: 479;
     font-style: normal;
 }
+.DaffodilZone_subtitle{
+    left: 16px;
+    font-size: 15px;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 479;
+    font-style: normal;
+}
 
 
 li, a, button {

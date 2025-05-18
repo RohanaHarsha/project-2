@@ -18,6 +18,26 @@
     font-size: 1.1rem;
     color: #555;
   }
+
+  .house_description {
+    font-family: Arial, sans-serif;
+    color: #000000;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+  
+  .property_highlights, .property_features, .property_description {
+    margin-bottom: 24px;
+  }
+  
+  .property_highlights h2,
+  .property_features h2,
+  .property_description h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
   
   /* Gallery Layout */
   .gallery {
@@ -156,3 +176,7 @@
     }
   }
   
+  .house_description,
+.house_description * {
+  color: #1a1a1a !important;
+}
