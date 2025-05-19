@@ -61,11 +61,7 @@ const HouseDisplay = () => {
                   )}
                 </div>
                 <div className='text'>
-                  <div className='category flex'>
-                    <span style={{ background: houseType === "Budget House" ? "#25b5791a" : "#ff98001a", color: houseType === "Luxury House" ? "#25b579" : "#ff9800" }}>{houseType}</span>
-                    <i className='fa fa-heart'></i>
-                  </div>
-                  <h4 className="keyWord">{keyWord}</h4>
+                  
                   <p className="district">
                     <i className='fa fa-location-dot'></i> {district}
                   </p>

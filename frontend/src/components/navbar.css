@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,14 +14,16 @@
     font-weight: 479;
     font-style: normal;
 }
-.DaffodilZone_subtitle{
-    left: 16px;
-    font-size: 15px;
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 479;
+
+.DaffodilZone_subtitle {
+    font-family: 'Dancing Script', cursive; /* Handwritten style */
+    font-size: 18px;
     font-style: normal;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-left: 73px;
 }
+
 
 
 li, a, button {

@@ -17,10 +17,8 @@ import Signup from './pages/login/signup';
 import DisplayAgentHouse from './pages/Admin/DisplayAgentHouse';
 import Propertyinfo from './pages/HouseCards/propertyinfo';
 import Customer from './pages/customer/customer';
-import MyBookings from "./pages/MyBookings/MyBookings";
-import AllBookings from "./pages/AllBookings/AllBookings";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Googlemap from './pages/HouseCards/googlemap';
+
 
 function App() {
   return (
@@ -49,9 +47,6 @@ function App() {
           <Route path="/displayAgentHouse" element={<DisplayAgentHouse />} />
           <Route path="/propertyinfo/:id" element = {<Propertyinfo/>}/>
           <Route path="/CustomerHome" element={<Customer />} />
-          <Route path="/my-bookings" element={<MyBookings />} />
-          <Route path="/bookings" element={<AllBookings />} />
-          <Route path="/googlemap" element={<Googlemap />} />  
        </Routes>
       </Router>
     </div>

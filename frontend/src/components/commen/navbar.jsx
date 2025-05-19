@@ -35,10 +35,10 @@ export default function Navbar() {
         <img className="logo" src={logo} alt="Daffodil Zone Logo" />
         <nav>
           <ul className="nav__links">
-            <li className="DaffodilZone">DAFFODIL ZONE</li>
-          </ul>
-          <ul>
-            <li className="DaffodilZone_subtitle">Property Sollutions</li>
+            <li className="DaffodilZone">
+              DAFFODIL ZONE
+              <div className="DaffodilZone_subtitle">Property Solutions</div>
+            </li>
           </ul>
         </nav>
         <div className="contact-login">

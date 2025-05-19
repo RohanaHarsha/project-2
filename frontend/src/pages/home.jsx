@@ -69,10 +69,11 @@ export default function Home() {
             <br />
             <Awards />
             <Description />
-            <Footer />
+            
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import MapContainer from "./googlemap";
+
 import defimg from "../../img/1st.jpg";
 import PopupModal from "./PopupModal";
 import Footer from "../../components/Footer/footer";
