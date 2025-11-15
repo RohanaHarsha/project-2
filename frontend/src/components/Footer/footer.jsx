@@ -1,59 +1,63 @@
+// Footer.jsx
 import React from "react";
-import "./footer.css";
-// Replace with your actual logo or remove if you don't want an image
 import footerLogo from "../../img/Logo.jpg";
+import "./footer.css";
 
-// If you'd like icons (Facebook, Twitter, etc.), you can install FontAwesome:
-// 1) npm install @fortawesome/fontawesome-free
-// 2) import icons in your CSS or link them in your index.html
-
-const Footer = () => {
+export default function Footer() {
   return (
-    <div className="footer-wrapper">
-
-      {/* MAIN FOOTER CONTENT */}
+    <footer className="footer-wrapper">
+      {/* Main Footer */}
       <div className="footer-container">
-        {/* BRAND + SUBSCRIBE SECTION */}
+        {/* Brand */}
         <div className="footer-brand">
-          <img src={footerLogo} alt="Footer Logo" className="footer-logo" />
-          
+          <img src={footerLogo} alt="Logo" className="footer-logo" />
+          <p className="footer-brand-text">
+            Daffodilzone.lk — Bringing quality and trust to every purchase.
+          </p>
+          <div className="footer-subscribe">
+            <input type="email" placeholder="Enter your email" />
+            <button>Subscribe</button>
+          </div>
         </div>
 
-        {/* NAVIGATION LINKS */}
+        {/* Navigation */}
         <div className="footer-column">
           <h3>Navigation</h3>
-          <table>
-            <tr>
-              <td>Home</td>
-              <td>About Us</td>
-            </tr>
-          </table>
+          <ul>
+            <li>Home</li>
+            <li>About Us</li>
+            <li>Shop</li>
+            <li>Contact</li>
+          </ul>
         </div>
 
-        {/* ABOUT LINKS */}
+        {/* About */}
         <div className="footer-column">
           <h3>About</h3>
+          <ul>
+            <li>Our Story</li>
+            <li>Terms & Conditions</li>
+            <li>Privacy Policy</li>
+            <li>FAQ</li>
+          </ul>
         </div>
 
-        {/* SOCIAL / CONTACT */}
+        {/* Social */}
         <div className="footer-column">
           <h3>Social</h3>
-          <table>
-            <tr>
-              <td>Facebook</td>
-              <td>Twitter</td>
-              <td>Instagram</td>
-            </tr>
-          </table>
+          <ul>
+            <li>Facebook</li>
+            <li>Twitter</li>
+            <li>Instagram</li>
+            <li>LinkedIn</li>
+          </ul>
         </div>
       </div>
 
-      {/* COPYRIGHT / LEGAL */}
+      {/* Legal */}
       <div className="footer-legal">
-        <p>© 2025 Daffodilzone.lk. All Rights Reserved.</p>
+        © 2025 Daffodilzone.lk. All Rights Reserved.
       </div>
-    </div>
+    </footer>
   );
-};
-
-export default Footer;
+}

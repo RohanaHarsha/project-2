@@ -1,169 +1,164 @@
+
+
 /* =========================
-   1) General Wrapper
+   FOOTER CSS — footer.css
    ========================= */
-   .footer-wrapper {
-    background: #1b1b1b; /* dark background */
-    color: #fff;         /* white text */
-    font-family: Arial, sans-serif;
-    margin-top: 30px;
-    margin-bottom: 0;
-  }
-  
-  /* =========================
-     2) Top Call-To-Action (CTA)
-     ========================= */
+
+/* Wrapper */
+.footer-wrapper {
+  background: #1b1b1b;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin-top: 30px;
+}
+
+/* CTA Section */
+.footer-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+  background: #222;
+  flex-wrap: wrap;
+}
+
+.footer-cta-content h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.footer-cta-content p {
+  margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.footer-cta-button {
+  background: #ffcc00;
+  color: #000;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.footer-cta-button:hover {
+  background: #e6b800;
+}
+
+/* Responsive CTA */
+@media (max-width: 768px) {
   .footer-cta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 10%;
-    background: #222;  /* slightly lighter or darker than main */
-    flex-wrap: wrap;
-  }
-  
-  .footer-cta-content h1 {
-    font-size: 2rem;
-    margin: 0;
-  }
-  
-  .footer-cta-content p {
-    margin: 10px 0 0;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .footer-cta-button {
-    background: #ffcc00;
-    color: #000;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-left: 20px; /* Some space between text and button */
-  }
-  
-  .footer-cta-button:hover {
-    background: #e6b800;
-  }
-  
-  /* Responsive CTA */
-  @media (max-width: 768px) {
-    .footer-cta {
-      flex-direction: column;
-      text-align: center;
-    }
-    .footer-cta-button {
-      margin: 20px 0 0;
-    }
-  }
-  
-  /* =========================
-     3) Main Footer Content
-     ========================= */
-  .footer-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    padding: 40px 10%;
-    background: #1b1b1b;
-  }
-  
-  /* For smaller screens, reduce columns */
-  @media (max-width: 992px) {
-    .footer-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 576px) {
-    .footer-container {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  /* Brand Section */
-  .footer-brand {
-    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .footer-logo {
-    width: 60px;
-    margin-bottom: 10px;
-    border-radius: 50%; /* optional if you want a round logo */
-  }
-  
-  .footer-brand-text {
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-  
-  /* Subscribe Form */
-  .footer-subscribe {
-    display: flex;
-    width: 100%;
-  }
-  
-  .footer-subscribe input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-    font-size: 0.9rem;
-  }
-  
-  .footer-subscribe button {
-    background: #ffcc00;
-    border: none;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s;
-  }
-  
-  .footer-subscribe button:hover {
-    background: #e6b800;
-  }
-  
-  /* Footer Columns */
-  .footer-column h3 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #ffcc00;
-  }
-  
-  .footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .footer-column ul li {
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-    cursor: pointer;
-  }
-  
-  .footer-column ul li:hover {
-    color: #ffcc00;
-  }
-  
-  /* =========================
-     4) Footer Legal
-     ========================= */
-  .footer-legal {
-    background: #111;
     text-align: center;
-    padding: 15px;
-    color: #aaa;
-    font-size: 0.9rem;
-    line-height: 1.4;
   }
-  
+  .footer-cta-button {
+    margin-top: 20px;
+  }
+}
+
+/* Main Footer */
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 40px 10%;
+  background: #1b1b1b;
+}
+
+@media (max-width: 992px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Brand */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  width: 60px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+.footer-brand-text {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/* Subscribe */
+.footer-subscribe {
+  display: flex;
+  width: 100%;
+}
+
+.footer-subscribe input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.footer-subscribe button {
+  background: #ffcc00;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.footer-subscribe button:hover {
+  background: #e6b800;
+}
+
+/* Columns */
+.footer-column h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-column ul li:hover {
+  color: #ffcc00;
+}
+
+/* Legal */
+.footer-legal {
+  background: #111;
+  text-align: center;
+  padding: 15px;
+  color: #aaa;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}

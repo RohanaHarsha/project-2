@@ -43,9 +43,7 @@ export default function Navbar() {
         </nav>
         <div className="contact-login">
           <div className="contactinfo">
-            <ul>
-              <li className="capitalize">Welcome {sessionuserName}</li>
-            </ul>
+          
           </div>
           <div>
             {sessionUserId && sessionuser_email ? (
