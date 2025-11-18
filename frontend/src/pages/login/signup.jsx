@@ -16,6 +16,9 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const API_URL = process.env.REACT_APP_API_URL; 
+
+
     const togglePanel = () => {
         setIsSignInActive(!isSignInActive);
     };
@@ -28,7 +31,7 @@ const Signup = () => {
         }
     
         // API call for login
-        axios.post('http://127.0.0.1:5000/auth/login', {
+        axios.post(`${API_URL}/auth/login`, {
             email: email,
             password: password,
             role: role
@@ -85,7 +88,7 @@ const Signup = () => {
         setLoading(true); // Set loading to true before API call
 
         // API call for signup
-        axios.post('http://127.0.0.1:5000/auth/UsersignUp', {
+        axios.post(`${API_URL}/auth/UsersignUp`, {
             name,
             email,
             password,
