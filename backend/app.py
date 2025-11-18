@@ -40,6 +40,10 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(house_bp, url_prefix="/house")
 app.register_blueprint(main_bp)  
 
+@app.route('/')
+def home():
+    return "Welcome to the Real Estate Backend API"
+
 
 @app.route('/displayHouses/<string:houseType>', methods=['GET'])
 def displayHouses(houseType):
