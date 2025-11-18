@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, session, redirect, url_for
 from flask_cors import CORS
 from models import House, PropertyBooking, db
-from schemas import Property_Booking_Schema, banner_schema
+from schemas import PropertyBookingSchema
 from datetime import datetime, time
 from flask_mail import Mail, Message
 
@@ -13,7 +13,7 @@ def get_bookings():
     try:
         # Retrieve all bookings
         all_bookings = PropertyBooking.query.all()
-        results = Property_Booking_Schema.dump(all_bookings)
+        results = PropertyBookingSchema.dump(all_bookings)
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500

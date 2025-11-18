@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from flask_mail import Message
 
 from models import db, House, HouseImage, PropertyBooking, AgentHouse, AgentHouseImage, Agent
-from schemas import house_schema, Property_Booking_Schema, agent_schema, Agent_house_schema, Agent_house_image_schema
+from schemas import HouseSchema, HouseImageSchema, PropertyBookingSchema, AgentHouseSchema, AgentHouseImageSchema, AgentSchema
 from utils import allowed_file, is_valid_email
 
 main_bp = Blueprint('main', __name__)

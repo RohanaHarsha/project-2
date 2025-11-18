@@ -7,11 +7,11 @@ bcrypt = Bcrypt()
 
 with app.app_context():
     new_admin = Admin(
-        name="r",
+        name="rohana",
         address="hey",
         NIC=200000000293,
         email="rhAdmin@gmail.com",
-        TP=0,
+        TP=200000000293,
         username= "rohan354789",
         password=bcrypt.generate_password_hash("admin").decode('utf-8'),  # Hash the password before storing
           # Debugging

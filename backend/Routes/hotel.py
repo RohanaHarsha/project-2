@@ -2,7 +2,7 @@ from flask import Blueprint, app, jsonify, request
 import os
 from werkzeug.utils import secure_filename
 from models import db, Hotel, HotelImage
-from schemas import hotel_schema
+from schemas import HotelSchema
 
 
 
@@ -61,7 +61,7 @@ def upload_hotel():
 def hotels():
     try:
         all_hotels = Hotel.query.all()
-        results = hotel_schema.dump(all_hotels)
+        results = HotelSchema.dump(all_hotels)
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500

@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request,current_app
 import os
 from werkzeug.utils import secure_filename
 from models import db, House, HouseImage
-from schemas import house_schema
+from schemas import HouseSchema
 
 
 house_bp = Blueprint('Houses', __name__)
@@ -87,7 +87,7 @@ def upload_luxury_house():
 def houses():
     try:
         all_houses = House.query.all()
-        results = house_schema.dump(all_houses)
+        results = HouseSchema.dump(all_houses)
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500     
@@ -97,7 +97,7 @@ def houses():
 def displayHouses(houseType):
     try:
         houses = House.query.filter_by(houseType=houseType).order_by(House.upload_time.desc()).all()
-        results = house_schema.dump(houses) 
+        results = HouseSchema.dump(houses) 
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500       
@@ -117,7 +117,7 @@ def get_house():
         if not house:
             return jsonify({"error": "House not found"}), 401
         
-        house_data = house_schema.dump(house)
+        house_data = HouseSchema.dump(house)
         print("House Data Type:", type(house_data))  # Check the type
         print("House Data:", house_data)  # Log the data
 

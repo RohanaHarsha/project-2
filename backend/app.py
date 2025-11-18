@@ -31,7 +31,7 @@ from Routes.hotel import hotel_bp
 from Routes.auth import auth_bp
 from Routes.main import main_bp  
 from Routes.house import house_bp  
-from schemas import house_schema
+from schemas import HouseSchema
 
 app.register_blueprint(banner_bp, url_prefix="/banner")
 app.register_blueprint(agent_bp, url_prefix="/agent")
@@ -45,7 +45,7 @@ app.register_blueprint(main_bp)
 def displayHouses(houseType):
     try:
         houses = House.query.filter_by(houseType=houseType).order_by(House.upload_time.desc()).all()
-        results = house_schema.dump(houses) 
+        results = HouseSchema.dump(houses) 
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
@@ -66,7 +66,7 @@ def get_house():
         if not house:
             return jsonify({"error": "House not found"}), 401
         
-        house_data = house_schema.dump(house)
+        house_data =  HouseSchema.dump(house)
         print("House Data Type:", type(house_data))  # Check the type
         print("House Data:", house_data)  # Log the data
 
@@ -121,5 +121,6 @@ def displayRecentCard():
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
+        
 if __name__ == '__main__':
     app.run(debug=True)

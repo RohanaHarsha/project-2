@@ -2,7 +2,7 @@ from flask import Blueprint, app, jsonify, request, current_app
 import os
 from werkzeug.utils import secure_filename
 from models import db, Banner
-from schemas import banner_schema
+from schemas import BannerSchema
 from config import Config
 
 banner_bp = Blueprint('banner', __name__)
@@ -15,6 +15,7 @@ def allowed_file(filename):
 
 
 
+
 @banner_bp.route("/addBanner", methods=["POST"])
 def upload_file():
     try:
@@ -23,42 +24,44 @@ def upload_file():
 
         files = request.files.getlist('files[]')
         description = request.form['description']
-        
+
+        upload_dir = current_app.config.get('UPLOAD_FOLDER', Config.UPLOAD_FOLDER)
+        os.makedirs(upload_dir, exist_ok=True)
+
         errors = {}
-        success = False
+        saved = []
 
         for file in files:
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                #file.save(os.path.join(Config['UPLOAD_FOLDER'], filename))
-                file.save(os.path.join(Config.UPLOAD_FOLDER, filename)) 
-
-                # Save file metadata to the database
+                file.save(os.path.join(upload_dir, filename))
                 new_image = Banner(title=filename, description=description)
                 db.session.add(new_image)
-                db.session.commit()
-                success = True
+                saved.append(filename)
             else:
-                errors[file.filename] = 'File type is not allowed'
-        
-        if success:
-            return jsonify({"message": 'Files successfully uploaded', "status": 'success'}), 201
+                errors[file.filename or "unknown"] = 'File type is not allowed'
+
+        if saved:
+            db.session.commit()
+            return jsonify({"message": 'Files successfully uploaded', "status": 'success', "files": saved}), 201
         else:
-            return jsonify(errors), 500
+            db.session.rollback()
+            return jsonify({"errors": errors, "status": "fail"}), 400
 
     except Exception as e:
         db.session.rollback()
-        print(e)  # Log the exception for debugging purposes
-        return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
-        
+        return jsonify({"error": str(e), "status": "fail"}), 500
+
+
 @banner_bp.route('/displayBanner', methods=['GET'])
 def images():
     try:
         all_images = Banner.query.all()
-        results = banner_schema.dump(all_images)
+        results = BannerSchema(many=True).dump(all_images)
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
+
 
 @banner_bp.route('/deleteBanner/<int:id>', methods=['DELETE'])
 def delete_image(id):

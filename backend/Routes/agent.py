@@ -2,7 +2,7 @@ import os
 import bcrypt
 from flask import Blueprint, Flask, jsonify, request
 from models import Agent, AgentHouse, AgentHouseImage, db
-from schemas import  agent_schema
+from schemas import  AgentSchema
 from flask_bcrypt import Bcrypt
 from config import Config
 from werkzeug.utils import secure_filename
