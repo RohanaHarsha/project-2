@@ -9,10 +9,6 @@ import logging
 from flask_cors import CORS
 from flask import current_app
 from models import Admin
-from flask_bcrypt import Bcrypt
-
-
-
 
 
 
@@ -29,31 +25,9 @@ bcrypt = Bcrypt(app)
 with app.app_context():
     db.create_all()
 
-# Register blueprints from the Routes folder
-from Routes.banner import banner_bp
-from Routes.agent import agent_bp
-from Routes.hotel import hotel_bp
-from Routes.auth import auth_bp
-from Routes.main import main_bp  
-from Routes.house import house_bp  
-from schemas import HouseSchema
-from models import Admin
-
-app.register_blueprint(banner_bp, url_prefix="/banner")
-app.register_blueprint(agent_bp, url_prefix="/agent")
-app.register_blueprint(hotel_bp, url_prefix="/hotels")
-app.register_blueprint(auth_bp, url_prefix="/auth")
-app.register_blueprint(house_bp, url_prefix="/house")
-app.register_blueprint(main_bp)  
-
-@app.route('/')
-def create_default_admin():
-    with app.app_context():
-        existing = Admin.query.filter_by(username="admin").first()
-        if existing:
-            print("Default admin already exists.")
-            return
-        
+    # ---- Create Default Admin (only if missing) ----
+    existing_admin = Admin.query.filter_by(username="admin").first()
+    if not existing_admin:
         admin = Admin(
             name="Default Admin",
             address="N/A",
@@ -66,6 +40,30 @@ def create_default_admin():
         db.session.add(admin)
         db.session.commit()
         print("Default admin created.")
+    else:
+        print("Default admin already exists.")
+
+
+# Register blueprints from the Routes folder
+from Routes.banner import banner_bp
+from Routes.agent import agent_bp
+from Routes.hotel import hotel_bp
+from Routes.auth import auth_bp
+from Routes.main import main_bp  
+from Routes.house import house_bp  
+from schemas import HouseSchema
+
+app.register_blueprint(banner_bp, url_prefix="/banner")
+app.register_blueprint(agent_bp, url_prefix="/agent")
+app.register_blueprint(hotel_bp, url_prefix="/hotels")
+app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(house_bp, url_prefix="/house")
+app.register_blueprint(main_bp)  
+
+@app.route('/')
+def home():
+    
+    return "Welcome to the Real Estate Backend API"
 
 
 @app.route('/displayHouses/<string:houseType>', methods=['GET'])
