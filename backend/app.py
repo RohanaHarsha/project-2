@@ -8,6 +8,11 @@ from flask_bcrypt import Bcrypt
 import logging
 from flask_cors import CORS
 from flask import current_app
+from models import Admin
+from flask_bcrypt import Bcrypt
+
+
+
 
 
 
@@ -32,6 +37,7 @@ from Routes.auth import auth_bp
 from Routes.main import main_bp  
 from Routes.house import house_bp  
 from schemas import HouseSchema
+from models import Admin
 
 app.register_blueprint(banner_bp, url_prefix="/banner")
 app.register_blueprint(agent_bp, url_prefix="/agent")
@@ -41,8 +47,25 @@ app.register_blueprint(house_bp, url_prefix="/house")
 app.register_blueprint(main_bp)  
 
 @app.route('/')
-def home():
-    return "Welcome to the Real Estate Backend API"
+def create_default_admin():
+    with app.app_context():
+        existing = Admin.query.filter_by(username="admin").first()
+        if existing:
+            print("Default admin already exists.")
+            return
+        
+        admin = Admin(
+            name="Default Admin",
+            address="N/A",
+            NIC=200000000293,
+            email="admin@example.com",
+            TP=200000000293,
+            username="admin",
+            password=bcrypt.generate_password_hash("admin123").decode("utf-8")
+        )
+        db.session.add(admin)
+        db.session.commit()
+        print("Default admin created.")
 
 
 @app.route('/displayHouses/<string:houseType>', methods=['GET'])
