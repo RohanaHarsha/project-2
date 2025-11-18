@@ -121,6 +121,6 @@ def displayRecentCard():
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500
-        
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
