@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/commen/sidebar';
+import Sidebar from '../../components/commen/sidebar';
 import HomeVid from "../../img/HomeVid.mp4";
-import '../../pages/home.css';
+import './adminhome.css';
 import LatestProjects from '../../components/LatestProjects';
 import Recent from "../../pages/Home/Recent";
 import Awards from "../../pages/Home/Awards";
@@ -17,10 +17,11 @@ export default function Home() {
     const toggleHouseForm = () => setShowHouseForm(prev => !prev);
 
     return (
-        <div className="home-layout">
-            <Navbar />
+        <div className="page-with-sidebar">
+         
+            <Sidebar />
 
-            <div className="main-content">
+            <div className="page-content">
                 <div className="imageContainer">
                     <div className="text-container-home">
                         <h1 className='text-on-image'>
@@ -37,20 +38,21 @@ export default function Home() {
                     />
                 </div>
 
+                {/* Website Body */}
                 <div className='web_body'>
                     <div className="latestProjectsContainer">
                         <h2>Latest Projects</h2>
                         <LatestProjects />
 
-                
-                        {showHouseForm && 
-                            <AddHouse 
-                                userId={"admin_id"} 
-                                user_email={"admin_email@example.com"} 
-                            />
-                        }
-
+                        {/* Conditional Forms */}
+                        {showBannerForm && <AddBannerForm />}
+                        {showHouseForm && <AddHouse />}
                     </div>
+
+                    {/* Other Sections */}
+                    <Recent />
+                    <Awards />
+                    <Description />
                 </div>
             </div>
         </div>

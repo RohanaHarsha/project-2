@@ -23,6 +23,7 @@ class Admin(db.Model):
     TP = db.Column(db.String(20))
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
+    role = db.Column(db.String(50))
 
 
 class Agent(db.Model):
@@ -47,7 +48,6 @@ class Customer(db.Model):
     TP = db.Column(db.String(15))
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
-
     appointments = db.relationship('Appointment', back_populates='customer', cascade='all, delete-orphan')
 
 

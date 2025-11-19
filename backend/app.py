@@ -35,7 +35,8 @@ with app.app_context():
             email="admin@example.com",
             TP=200000000293,
             username="admin",
-            password=bcrypt.generate_password_hash("admin123").decode("utf-8")
+            password=bcrypt.generate_password_hash("admin123").decode("utf-8"),
+            role="admin"
         )
         db.session.add(admin)
         db.session.commit()

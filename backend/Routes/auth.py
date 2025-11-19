@@ -26,56 +26,39 @@ def login_user():
     try:
         email = request.json.get("email")
         password = request.json.get("password")
-        role = request.json.get("role")
 
-        # Check for a valid role
-        if role not in VALID_ROLES:
-            return jsonify({"error": "Invalid role", "status": "fail"}), 400
-        
-        print(f"Role: {role}, Email: {email}")  # Debugging
+        if not email or not password:
+            return jsonify({"error": "Email and password required", "status": "fail"}), 400
 
-        # Query for the appropriate user based on role
-        user = None
-        username = None  # Default username as None
+        # Search in all user tables
+        user = (
+            Admin.query.filter_by(email=email).first()
+            or Agent.query.filter_by(email=email).first()
+            or Customer.query.filter_by(email=email).first()
+        )
 
-        if role == 'customer':
-            user = Customer.query.filter_by(email=email).first()
-            username = user.username if user else None
-        elif role == 'agent':
-            user = Agent.query.filter_by(email=email).first()
-            username = user.username if user else None  # ✅ Fix for missing username
-        elif role == 'user':
-            user = Admin.query.filter_by(email=email).first()
-            username = user.username if user else None
-       
-        
-       
-
-        # If the user is not found, return an error
         if not user:
-            return jsonify({"error": "Email not found", "status": "fail"}), 401
-        
-        # Check password
-        if not bcrypt.check_password_hash(user.password, password):
-            return jsonify({"error": "Invalid password", "status": "fail"}), 402
+            return jsonify({"error": "User not found", "status": "fail"}), 404
 
-        # Save user ID and email in session
-        session["user_id"] = user.id
-        session["email"] = user.email
+        # DB must store hashed passwords, adjust accordingly
+        if not bcrypt.check_password_hash(user.password, password):
+            return jsonify({"error": "Invalid credentials", "status": "fail"}), 401
+
+        # 🔥 Role is coming from the DB — no role from request
+        role = getattr(user, "role", None)
+        username = getattr(user, "username", None)
 
         return jsonify({
-            "id": user.id,
-            "email": user.email,
-            "username": username,  
+            "message": "Login successful",
+            "username": username,
             "role": role,
-            "status": "success",
-            "user_id": session["user_id"],
-            "user_email": session["email"]
+            "status": "success"
         }), 200
 
     except Exception as e:
-        print("ERROR:", str(e))
-        return jsonify({"error": str(e), "status": "fail"}), 500
+        print(str(e))
+        return jsonify({"error": "Server error", "status": "fail"}), 500
+
 
 
 
@@ -85,41 +68,41 @@ def login_user():
 @auth_bp.route('/UsersignUp', methods=['POST'])
 def UsersignUp():
     try:
-        # Retrieve data from the request
-        name = request.json.get("name")
         email = request.json.get("email")
         password = request.json.get("password")
-        tp = request.json.get("tp")  # TelePhone number
-        username = request.json.get("username")
 
-        # Check if user already exists
-        user_exists = Customer.query.filter_by(email=email).first() is not None
+        if not email or not password:
+            return jsonify({"error": "Email and password required", "status": "fail"}), 400
 
-        if user_exists:
-            return jsonify({"error": "Email already exists", "status": "fail"}), 409
-        
-        # Create new user instance
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        new_user = Customer(name=name, email=email, TP=tp, username=username, password=hashed_password)
+        # Search in all user tables
+        user = (
+            Admin.query.filter_by(email=email).first()
+            or Agent.query.filter_by(email=email).first()
+            or Customer.query.filter_by(email=email).first()
+        )
 
-        
-        #Add new user to the session and commit to the database
-        db.session.add(new_user)
-        db.session.commit()
-        
-        #Optionally, store user ID in session (if you want to manage sessions)
-        session["user_id"] = new_user.id
-        
+        if not user:
+            return jsonify({"error": "User not found", "status": "fail"}), 404
+
+        # DB must store hashed passwords, adjust accordingly
+        if not bcrypt.check_password_hash(user.password, password):
+            return jsonify({"error": "Invalid credentials", "status": "fail"}), 401
+
+        # 🔥 Role is coming from the DB — no role from request
+        role = getattr(user, "role", None)
+        username = getattr(user, "username", None)
+
         return jsonify({
-            "id": new_user.id,
-            "email": new_user.email,
+            "message": "Login successful",
+            "username": username,
+            "role": role,
             "status": "success"
-        }), 201
+        }), 200
 
     except Exception as e:
-        print(e)  #Log the exception for debugging purposes
-        return jsonify({"error": "An error occurred during sign up", "status": "fail"}), 500
-    
+        print(str(e))
+        return jsonify({"error": "Server error", "status": "fail"}), 500
+
 
 @auth_bp.route('/signUp', methods=['POST'])
 def signUp():

@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import "./AddHouse.css";
+import Sidebar from "../components/commen/sidebar";
 
 class AddHouse extends Component {
   constructor(props) {
@@ -193,153 +194,266 @@ class AddHouse extends Component {
     const { responseMsg, houses } = this.state;
 
     return (
-      <div className="body">
-        <form onSubmit={this.submitHandler} encType="multipart/form-data" id="houseForm">
-          {responseMsg.status === "success" && (
-            <div style={{ color: "green" }}>{responseMsg.message}</div>
-          )}
-          {responseMsg.status === "failed" && (
-            <div style={{ color: "red" }}>{responseMsg.error}</div>
-          )}
+      <div className="page-with-sidebar">
+        <Sidebar />
 
-          <Container fluid className="px-5">
-            <h5>Add House Details</h5>
+        <div className="page-content">
+          <form
+            onSubmit={this.submitHandler}
+            id="houseForm"
+            encType="multipart/form-data"
+          >
+            {responseMsg.status === "success" && (
+              <div className="msg-success">{responseMsg.message}</div>
+            )}
+            {responseMsg.status === "failed" && (
+              <div className="msg-error">{responseMsg.error}</div>
+            )}
 
-            <Row className="mb-3">
-              <Col md={6}>
-                <input name="district" placeholder="District" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={6}>
-                <input name="address" placeholder="Address" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
+            <Container className="px-4">
+              <h3 className="page-title">Add House Details</h3>
 
-            <Row className="mb-3">
-              <Col md={6}>
-                <input name="lat" type="number" placeholder="Latitude" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={6}>
-                <input name="lng" type="number" placeholder="Longitude" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
-
-            <Row className="mb-3">
-              <Col md={4}>
-                <input name="no_of_rooms" type="number" placeholder="Rooms" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={4}>
-                <input name="no_of_bathrooms" type="number" placeholder="Bathrooms" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={4}>
-                <input name="storey" type="number" placeholder="Storey" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
-
-            <Row className="mb-3">
-              <Col md={6}>
-                <input name="land_size" type="number" placeholder="Land Size (Perches)" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={6}>
-                <input name="distance" type="number" placeholder="Distance to Town (KM)" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
-
-            <Row className="mb-3">
-              <Col md={6}>
-                <input name="keyWord" placeholder="Keyword" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-              <Col md={6}>
-                <input name="price" type="number" placeholder="Price (in Millions)" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
-
-            <Row className="mb-3">
-              <Col>
-                <textarea name="description" rows={3} placeholder="Description" className="form-control" onChange={this.handleInputChange} />
-              </Col>
-            </Row>
-
-            <h5 className="mt-4">Upload Images</h5>
-            <Row>
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Col md={4} className="mb-3" key={i}>
+              <Row className="mb-3">
+                <Col md={6}>
                   <input
-                    type="file"
-                    name={`image${i}`}
+                    name="district"
+                    placeholder="District"
                     className="form-control"
-                    onChange={this.handleFileChange}
+                    onChange={this.handleInputChange}
                   />
                 </Col>
-              ))}
-            </Row>
+                <Col md={6}>
+                  <input
+                    name="address"
+                    placeholder="Address"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
 
-            <h5 className="mt-3">House Type</h5>
-            <Row className="mb-3">
-              <Col md={4}>
-                <div className="form-check">
-                  <input type="radio" id="LuxuryHouse" name="houseType" value="Luxury House" className="form-check-input" onChange={this.handleInputChange} />
-                  <label htmlFor="LuxuryHouse" className="form-check-label">Luxury House</label>
-                </div>
-                <div className="form-check">
-                  <input type="radio" id="BudgetHouse" name="houseType" value="Budget House" className="form-check-input" onChange={this.handleInputChange} />
-                  <label htmlFor="BudgetHouse" className="form-check-label">Budget House</label>
-                </div>
-                <div className="form-check">
-                  <input type="radio" id="Apartment" name="houseType" value="Apartment" className="form-check-input" onChange={this.handleInputChange} />
-                  <label htmlFor="Apartment" className="form-check-label">Apartment</label>
-                </div>
-              </Col>
-            </Row>
+              <Row className="mb-3">
+                <Col md={6}>
+                  <input
+                    name="lat"
+                    type="number"
+                    placeholder="Latitude"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+                <Col md={6}>
+                  <input
+                    name="lng"
+                    type="number"
+                    placeholder="Longitude"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
 
-            <button type="submit" className="btn btn-primary mt-3">Upload</button>
-          </Container>
-        </form>
+              <Row className="mb-3">
+                <Col md={4}>
+                  <input
+                    name="no_of_rooms"
+                    type="number"
+                    placeholder="Rooms"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+                <Col md={4}>
+                  <input
+                    name="no_of_bathrooms"
+                    type="number"
+                    placeholder="Bathrooms"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+                <Col md={4}>
+                  <input
+                    name="storey"
+                    type="number"
+                    placeholder="Storey"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
 
-        <Container fluid className="px-5 mt-5">
-          <h4>Listed Properties</h4>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>ID</th>
-                <th>District</th>
-                <th>Address</th>
-                <th>Number of Rooms</th>
-                <th>Land Size</th>
-                <th>Image</th>
-                <th>Type</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {houses.map((house, index) => (
-                <tr key={house.id}>
-                  <td>{index + 1}</td>
-                  <td>{house.id}</td>
-                  <td>{house.district}</td>
-                  <td>{house.address}</td>
-                  <td>{house.no_of_rooms}</td>
-                  <td>{house.land_size}</td>
-                  <td>
-                    {house.images && house.images.length > 0 && house.images[0].image1 ? (
-                      <img
-                        src={`http://127.0.0.1:5000/static/uploads/${house.images[0].image1}`}
-                        alt={`House ${index + 1}`}
-                        style={{ width: "100px" }}
-                      />
-                    ) : (
-                      <span>No Image</span>
-                    )}
-                  </td>
-                  <td>{house.houseType}</td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => this.deleteImage(house.id)}>Delete</button>
-                  </td>
+              <Row className="mb-3">
+                <Col md={6}>
+                  <input
+                    name="land_size"
+                    type="number"
+                    placeholder="Land Size (Perches)"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+                <Col md={6}>
+                  <input
+                    name="distance"
+                    type="number"
+                    placeholder="Distance to Town (KM)"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
+
+              <Row className="mb-3">
+                <Col md={6}>
+                  <input
+                    name="keyWord"
+                    placeholder="Keyword"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+                <Col md={6}>
+                  <input
+                    name="price"
+                    type="number"
+                    placeholder="Price (in Millions)"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
+
+              <Row className="mb-3">
+                <Col>
+                  <textarea
+                    name="description"
+                    rows={3}
+                    placeholder="Description"
+                    className="form-control"
+                    onChange={this.handleInputChange}
+                  />
+                </Col>
+              </Row>
+
+              <h5 className="mt-4">Upload Images</h5>
+              <Row>
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <Col md={4} className="mb-3" key={i}>
+                    <input
+                      type="file"
+                      name={`image${i}`}
+                      className="form-control"
+                      onChange={this.handleFileChange}
+                    />
+                  </Col>
+                ))}
+              </Row>
+
+              <h5 className="mt-3">House Type</h5>
+              <Row className="mb-3">
+                <Col md={4}>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="LuxuryHouse"
+                      name="houseType"
+                      value="Luxury House"
+                      className="form-check-input"
+                      onChange={this.handleInputChange}
+                    />
+                    <label htmlFor="LuxuryHouse" className="form-check-label">
+                      Luxury House
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="BudgetHouse"
+                      name="houseType"
+                      value="Budget House"
+                      className="form-check-input"
+                      onChange={this.handleInputChange}
+                    />
+                    <label htmlFor="BudgetHouse" className="form-check-label">
+                      Budget House
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      id="Apartment"
+                      name="houseType"
+                      value="Apartment"
+                      className="form-check-input"
+                      onChange={this.handleInputChange}
+                    />
+                    <label htmlFor="Apartment" className="form-check-label">
+                      Apartment
+                    </label>
+                  </div>
+                </Col>
+              </Row>
+
+              <button type="submit" className="btn btn-primary mt-3">
+                Upload
+              </button>
+            </Container>
+          </form>
+
+          <Container fluid className="px-5 mt-5">
+            <h4>Listed Properties</h4>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>ID</th>
+                  <th>District</th>
+                  <th>Address</th>
+                  <th>Number of Rooms</th>
+                  <th>Land Size</th>
+                  <th>Image</th>
+                  <th>Type</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Container>
+              </thead>
+              <tbody>
+                {houses.map((house, index) => (
+                  <tr key={house.id}>
+                    <td>{index + 1}</td>
+                    <td>{house.id}</td>
+                    <td>{house.district}</td>
+                    <td>{house.address}</td>
+                    <td>{house.no_of_rooms}</td>
+                    <td>{house.land_size}</td>
+                    <td>
+                      {house.images &&
+                      house.images.length > 0 &&
+                      house.images[0].image1 ? (
+                        <img
+                          src={`http://127.0.0.1:5000/static/uploads/${house.images[0].image1}`}
+                          alt={`House ${index + 1}`}
+                          style={{ width: "100px" }}
+                        />
+                      ) : (
+                        <span>No Image</span>
+                      )}
+                    </td>
+                    <td>{house.houseType}</td>
+                    <td>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => this.deleteImage(house.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Container>
+        </div>
       </div>
     );
   }

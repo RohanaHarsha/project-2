@@ -7,15 +7,14 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const sessionUserId = sessionStorage.getItem("userId");
-  const sessionuser_email = sessionStorage.getItem("user_email");
-  const sessionuserRole = sessionStorage.getItem("userRole");
-  const sessionuserName = sessionStorage.getItem("username");
+  const sessionUserEmail = sessionStorage.getItem("user_email");
+  const sessionUserRole = sessionStorage.getItem("userRole");
+  const sessionUserName = sessionStorage.getItem("username");
 
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    navigate("/login", { replace: true }); // Ensure it redirects properly to login
-    window.location.reload(); // Optional: force full reload to reset UI
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -27,25 +26,25 @@ export default function Sidebar() {
 
       <div className="sidebar-user">
         <p>
-          Welcome, <strong>{sessionuserName || "Guest"}</strong>
+          Welcome, <strong>{sessionUserName || "Guest"}</strong>
         </p>
       </div>
 
       <ul className="sidebar-links">
-        
-
-        {sessionuserRole === "customer" && (
+        {/* -------- CUSTOMER -------- */}
+        {sessionUserRole === "customer" && (
           <>
             <li>
               <Link to="/">🏠 Home</Link>
             </li>
             <li>
-              <Link to="/my-bookings" >📑 My Bookings</Link>
+              <Link to="/my-bookings">📑 My Bookings</Link>
             </li>
           </>
         )}
 
-        {sessionuserRole === "agent" && (
+        {/* -------- AGENT -------- */}
+        {sessionUserRole === "agent" && (
           <>
             <li>
               <Link to="/bannerAdd">➕ Add Banner</Link>
@@ -56,10 +55,11 @@ export default function Sidebar() {
           </>
         )}
 
-        {sessionuserRole === "user" && (
+        {/* -------- ADMIN (NOT "user") -------- */}
+        {sessionUserRole === "admin" && (
           <>
             <li>
-              <Link to="/displayAgentHouse">🏘 Agent Houses</Link>
+              <Link to="/AdminHome">🏠 Home</Link>
             </li>
             <li>
               <Link to="/bannerAdd">📸 Add Banner</Link>
@@ -73,13 +73,12 @@ export default function Sidebar() {
             <li>
               <Link to="/addAgent">🧑‍💼 Add Agent</Link>
             </li>
-           
           </>
         )}
       </ul>
 
       <div className="sidebar-footer">
-        {sessionUserId && sessionuser_email ? (
+        {sessionUserId && sessionUserEmail ? (
           <button onClick={handleLogout}>🚪 Logout</button>
         ) : (
           <Link to="/login">

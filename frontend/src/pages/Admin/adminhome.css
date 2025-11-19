@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+/* =========================
+   Layout for Sidebar Pages
+========================= */
+.page-with-sidebar {
+  display: flex;
+}
+
+.page-content {
+  margin-left: 240px; /* sidebar width */
+  padding: 30px;
+  width: calc(100% - 240px);
+}
+
+/* =========================
+   Hero Section
+========================= */
+.imageContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.homePageImage {
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  object-fit: cover;
+  filter: brightness(0.5);
+  z-index: 1;
+}
+
+/* =========================
+   Animated Intro Text
+========================= */
+.text-container-home {
+  position: absolute;
+  left: 5%;
+  top: 8%;
+  text-align: left;
+  color: #746fc7;
+  opacity: 0;
+  z-index: 2;
+  animation: slideUp 2s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+    color: #0a3dca;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    color: #ffffff;
+  }
+}
+
+.text-container-home .text-on-image {
+  font-family: 'Dancing Script', cursive;
+  color: white;
+  font-size: 4em;
+  font-weight: bold;
+  line-height: 1.4;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Uppercase helper */
+.capitalize-text {
+  text-transform: uppercase;
+}
+
+/* =========================
+   Search / Filter Form
+========================= */
+.filterForm {
+  position: absolute;
+  width: 34%;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px 25px;
+  border-radius: 30px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  top: 68%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.filterInput {
+  flex: 1;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+}
+
+.filterButton {
+  background-color: #746fc7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.filterButton:hover {
+  background-color: #594fd2;
+}
+
+/* =========================
+   Latest Projects Section
+========================= */
+.latestProjectsContainer {
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.latestProjectsContainer h2 {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   Page Body
+========================= */
+.web_body {
+  background-color: #f5f5f5; /* corrected typo */
+  padding-bottom: 40px;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media screen and (max-width: 768px) {
+  .text-container-home .text-on-image {
+    font-size: 2.5em;
+  }
+
+  .filterForm {
+    flex-direction: column;
+    width: 80%;
+    top: 75%;
+  }
+
+  .filterInput,
+  .filterButton {
+    width: 100%;
+  }
+
+  .page-content {
+    margin-left: 0;
+    padding: 15px;
+    width: 100%;
+  }
+}

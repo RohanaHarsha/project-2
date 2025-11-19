@@ -1,4 +1,14 @@
-/* General Layout */
+
+.banner-page {
+  display: flex;
+}
+
+.banner-content {
+  margin-left: 240px; 
+  padding: 30px;
+  width: calc(100% - 240px);
+}
+
 form {
     max-width: 600px;
     margin: 20px auto;
@@ -9,7 +19,7 @@ form {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   }
   
-  /* Inputs & Labels */
+
   form label {
     font-weight: 600;
     margin-top: 12px;
@@ -46,7 +56,7 @@ form {
     opacity: 0.9;
   }
   
-  /* Success/Error Messages */
+
   p {
     font-weight: bold;
     text-align: center;
