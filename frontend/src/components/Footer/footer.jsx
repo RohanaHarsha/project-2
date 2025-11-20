@@ -24,21 +24,10 @@ export default function Footer() {
         <div className="footer-column">
           <h3>Navigation</h3>
           <ul>
-            <li>Home</li>
+            <li >Home</li>
             <li>About Us</li>
             <li>Shop</li>
             <li>Contact</li>
-          </ul>
-        </div>
-
-        {/* About */}
-        <div className="footer-column">
-          <h3>About</h3>
-          <ul>
-            <li>Our Story</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-            <li>FAQ</li>
           </ul>
         </div>
 

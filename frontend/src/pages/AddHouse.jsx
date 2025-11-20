@@ -49,10 +49,16 @@ class AddHouse extends Component {
     axios
       .get("http://127.0.0.1:5000/house/displayHouses")
       .then((response) => {
-        this.setState({ houses: response.data });
+        console.log("GET /house/displayHouses status:", response.status);
+        console.log("GET /house/displayHouses data:", response.data);
+        this.setState({ houses: response.data || [] });
       })
       .catch((error) => {
-        console.error("Error fetching houses:", error);
+        console.error(
+          "Error fetching houses:",
+          error,
+          error.response && error.response.data
+        );
       });
   };
 
@@ -121,7 +127,7 @@ class AddHouse extends Component {
       axios
         .post("http://127.0.0.1:5000/house/addLuxuryHouse", data)
         .then((response) => {
-          if (response.status === 201) {
+          if (response.status === 200 || response.status === 201) {
             this.setState({
               responseMsg: {
                 status: "success",
@@ -178,7 +184,7 @@ class AddHouse extends Component {
   deleteImage = (id) => {
     if (window.confirm("Are you sure you want to delete this image?")) {
       axios
-        .delete(`http://127.0.0.1:5000/deleteHouse/${id}`)
+        .delete(`http://127.0.0.1:5000/house/deleteHouse/${id}`)
         .then((response) => {
           if (response.status === 200) {
             this.fetchHouses();

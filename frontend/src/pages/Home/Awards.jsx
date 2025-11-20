@@ -1,47 +1,38 @@
+// ...existing code...
 import React from 'react';
 import Heading from '../../components/commen/Heading';
 import './Awards.css';
 
+const items = [
+  { id: 1, value: '32M', label: 'Blue Burmin Award', icon: 'fas fa-trophy' },
+  { id: 2, value: '43M', label: 'Mimo X11 Award', icon: 'fas fa-briefcase' },
+  { id: 3, value: '51M', label: 'Australian UGC Award', icon: 'fas fa-lightbulb' },
+];
+
 export default function Awards() {
-  const backgroundStyle = {
-    backgroundColor: '#122947', // Set background color to blue
-    padding: '20px', // Example padding for spacing
-  };
-
   return (
-    <div>
-      <section className='awards padding'>
-        <div className='container'>
-          <Heading title='Over 10,000+ Happy Users Being With Us Still They Love Our Services' subtitle='Our Awards' />
+    <section className="awards-section">
+      <div className="awards-inner container">
+        <Heading
+          title="Over 10,000+ Happy Users — They Love Our Services"
+          subtitle="Our Awards"
+        />
 
-          {/* Apply inline style to set background color */}
-          <div className='content grid4 mtop' >
-            <div className='box'style={backgroundStyle}>
-              <div className='icon'>
-                <i className='fas fa-trophy'></i>
+        <div className="awards-grid" role="list">
+          {items.map((it) => (
+            <article className="award-card" key={it.id} role="listitem" aria-label={it.label}>
+              <div className="award-icon" aria-hidden="true">
+                <i className={it.icon} />
               </div>
-              <h1>32 M</h1>
-              <p>Blue Burmin Award</p>
-            </div>
-
-            <div className='box'style={backgroundStyle}>
-              <div className='icon'>
-                <i className='fas fa-briefcase'></i>
+              <div className="award-body">
+                <div className="award-value">{it.value}</div>
+                <div className="award-label">{it.label}</div>
               </div>
-              <h1>43 M</h1>
-              <p>Mimo X11 Award</p>
-            </div>
-
-            <div className='box'style={backgroundStyle}>
-              <div className='icon'>
-                <i className='fas fa-lightbulb'></i>
-              </div>
-              <h1>51 M</h1>
-              <p>Australian UGC Award</p>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
+// ...existing code...

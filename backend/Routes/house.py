@@ -76,7 +76,7 @@ def upload_luxury_house():
         db.session.add(new_image)
         db.session.commit()
 
-        return {"message": "Luxury house added successfully"}, 200
+        return {"message": "Luxury house added successfully"}, 201
     except Exception as e:
         print("heyyyy", e)
         print(f"Error occurred: {e}")
@@ -86,44 +86,64 @@ def upload_luxury_house():
 @house_bp.route('/displayHouses', methods=['GET'])
 def houses():
     try:
-        all_houses = House.query.all()
-        results = HouseSchema.dump(all_houses)
+        houses = House.query.order_by(House.upload_time.desc()).all()
+        results = HouseSchema(many=True).dump(houses)
         return jsonify(results), 200
     except Exception as e:
-        return jsonify({"error": str(e), "status": "fail"}), 500     
+        return jsonify({"error": str(e), "status": "fail"}), 500
 
 
 @house_bp.route('/displayHouses/<string:houseType>', methods=['GET'])
 def displayHouses(houseType):
     try:
         houses = House.query.filter_by(houseType=houseType).order_by(House.upload_time.desc()).all()
-        results = HouseSchema.dump(houses) 
+        results = HouseSchema(many=True).dump(houses)
         return jsonify(results), 200
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500       
 
-########################################################################################
+# ...existing code...
+@house_bp.route('/deleteHouse/<int:id>', methods=['DELETE'])
+def delete_house(id):
+    try:
+        if not id:
+            current_app.logger.debug("No ID provided in request")
+            return jsonify({"error": "House ID is required"}), 400
+
+        house = House.query.get(id)
+        if not house:
+            return jsonify({"error": "House not found"}), 404
+
+        # remove associated image files if any
+        upload_dir = current_app.config.get('UPLOAD_FOLDER', 'static/uploads')
+        images = HouseImage.query.filter_by(house_id=house.id).all()
+        for img in images:
+            for fname in (img.image1, img.image2, img.image3, img.image4, img.image5, img.image6):
+                if fname:
+                    path = os.path.join(upload_dir, fname)
+                    if os.path.exists(path):
+                        os.remove(path)
+
+        db.session.delete(house)
+        db.session.commit()
+        return jsonify({"message": "House deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
 @house_bp.route('/displayHouse', methods=['POST'])
 def get_house():
     try:
         data = request.get_json()
-        print("Request data:", data)  # Log the incoming request data
-
-        # Extract the house ID
         id = data.get('id')
 
-        house = House.query.filter(House.id==id)
-
+        house = House.query.get(id)
         if not house:
-            return jsonify({"error": "House not found"}), 401
-        
-        house_data = HouseSchema.dump(house)
-        print("House Data Type:", type(house_data))  # Check the type
-        print("House Data:", house_data)  # Log the data
+            return jsonify({"error": "House not found"}), 404
 
-        # Check if house_data is a list and access the first item if necessary
-        if isinstance(house_data, list) and len(house_data) > 0:
-            house_data = house_data[0]  # Get the first (and only) element
+        # dump a single object (no many=True)
+        house_data = HouseSchema().dump(house)
 
         house_data = {
             'id': house_data['id'],
