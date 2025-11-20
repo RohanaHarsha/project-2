@@ -169,7 +169,6 @@ const Propertyinfo = ({ onBookNowClick }) => {
   return (
     <div className="capitalize camp-details">
       <div className="camp-title">
-        <h1>{house.keyWord}</h1>
         <div className="row">
           <p>
             <i className="fas fa-map-marker-alt"></i> <b>{house.district}</b>
@@ -268,15 +267,13 @@ const Propertyinfo = ({ onBookNowClick }) => {
           </h4>
         </div>
         <hr className="line" />
-        
-      
         <hr className="line" />
         <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
           <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
             {/* Property Highlights */}
             <div className="property_highlights">
               <h2 className="text-xl font-semibold mb-2 text-black">
-                 Property Highlights
+                Property Highlights
               </h2>
               <ul className="list-disc pl-6 text-gray-800">
                 <li>Type: {house.houseType || "Not mentioned"}</li>
@@ -288,22 +285,23 @@ const Propertyinfo = ({ onBookNowClick }) => {
             {/* Property Features */}
             <div className="property_features">
               <h2 className="text-xl font-semibold mb-2 text-black">
-                 Property Features
+                Property Features
               </h2>
               <ul className="list-disc pl-6 text-gray-800">
                 <li>{house.no_of_rooms || "Not mentioned"} Bed Rooms</li>
                 <li>{house.no_of_bathrooms || "Not mentioned"} Bathrooms</li>
-                <li>{house.land_size || "Not mentioned"} sqm<sup>2</sup></li>
+                <li>
+                  {house.land_size || "Not mentioned"} sqm<sup>2</sup>
+                </li>
                 <li>{house.distance || "Not mentioned"} To The Nearest City</li>
                 <li>{house.storey || "Not mentioned"} Storey</li>
-               
               </ul>
             </div>
 
             {/* Property Description */}
             <div className="property_description">
               <h2 className="text-xl font-semibold mb-2 text-black">
-                 Property Description
+                Property Description
               </h2>
               <p className="text-justify text-gray-800">
                 {house.description ||
@@ -322,7 +320,6 @@ const Propertyinfo = ({ onBookNowClick }) => {
       </div>
       <Footer />
     </div>
-
   );
 };
 

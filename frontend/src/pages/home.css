@@ -124,7 +124,7 @@
 }
 
 /* Responsive font size */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 300px) {
   .text-container-home .text-on-image {
     font-size: 2.5em;
   }

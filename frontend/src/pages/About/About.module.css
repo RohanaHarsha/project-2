@@ -211,7 +211,7 @@
   .heroTitle { font-size: 1.9rem; }
   .hero { height: 46vh; min-height: 320px; }
 }
-@media (max-width: 640px) {
+@media (max-width: 300px) {
   .heroTitle { font-size: 1.5rem; }
   .lead { font-size: 0.98rem; }
   .imageCard img { height: 220px; }

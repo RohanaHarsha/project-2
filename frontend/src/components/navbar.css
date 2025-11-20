@@ -1,111 +1,114 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    
-}
-.DaffodilZone{
-    font-size: 35px;
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 479;
-    font-style: normal;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg-dark: #0f1728;   /* softened near-black */
+  --bg-darker: #0b1220;
+  --accent: #6c78ff;
+  --accent-2: #574b90;
+  --muted: #9aa4b2;
+  --nav-height: 72px;
+  --max-w: 1200px;
 }
 
-.DaffodilZone_subtitle {
-    font-family: 'Dancing Script', cursive; /* Handwritten style */
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    margin-top: 5px;
-    margin-left: 73px;
-}
-
-
-
-li, a, button {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: #edf0f1;
-    text-decoration: none;
-    list-style: none;
-    
-}
-
+/* topbar */
 .topnav {
-    border-bottom: 2px solid #0088a9; /* Add bottom border */
-    background-color: #000000;
+  background: linear-gradient(180deg,var(--bg-dark),var(--bg-darker));
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color:#fff;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  box-shadow: 0 6px 18px rgba(8,10,20,0.35);
 }
 
-header {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 10%;
+/* layout */
+.nav-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 4%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  min-height: var(--nav-height);
+  width: 100%;
 }
-.contact-login {
-    display: flex;
-    align-items: center; /* Aligns contact info and login button vertically */
-  }
-.contact-login .contactinfo{
-    text-align: end;
-}
-.contact-login .contactinfo ul li {
-    font-size: 9px;
-    margin-right: 5px;
-}
-.contact-login .contactinfo ul {
-    margin: 0 !important;
-    padding-left: 0 !important;
-}
+
+/* left: brand */
+.nav-left { display:flex; align-items:center; gap:12px; flex: 0 0 auto; }
+.brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
 .logo {
-    width: 50px;
-    height: 70px;
-    cursor: pointer;
+  width: 56px; height: 56px; border-radius: 10px; object-fit: cover;
+  box-shadow: 0 8px 28px rgba(8,10,20,0.4); flex-shrink:0;
+}
+.brand-text { display:flex; flex-direction:column; line-height:1; }
+.DaffodilZone {
+  font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 16px; color: #fff;
 }
 
+/* center nav */
+.nav-main { display:flex; align-items:center; gap:20px; flex: 1 1 auto; justify-content: center; min-width: 0; }
 .nav__links {
-    list-style: none;
-    display: flex;
-    justify-content: space-around; /* Ensure equal spacing between items */
-    align-items: center;
-    width: 100%;
+  list-style:none; display:flex; gap: 18px; align-items:center; margin: 0; padding: 0; overflow: auto;
 }
-
-.nav__links li {
-    padding: 0 20px; /* Adjust padding if needed */
-}
-
 .nav__links li a {
-    transition: all 0.3s ease 0s;
+  color: rgba(255,255,255,0.94); text-decoration:none; font-weight:600; padding:8px 10px;
+  border-radius:8px; transition: color 160ms, transform 160ms;
+  white-space:nowrap;
+}
+.nav__links li a:hover,
+.nav__links li a:focus { color: var(--accent); transform: translateY(-3px); }
+
+/* right: actions & subtitle */
+.nav-actions {
+  display:flex; align-items:center; gap:12px; flex: 0 0 auto; margin-left: 12px;
+}
+.brand-subtitle-right {
+  font-family: "Dancing Script", cursive; font-size: 13px; color: var(--muted); margin-right: 6px;
+  display: inline-block; white-space: nowrap;
 }
 
-.nav__links li a:hover {
-    color: #0088a9;
+/* buttons */
+.btn-primary {
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color: #fff; padding: 10px 20px; border-radius: 999px; border: none; font-weight:700; cursor: pointer;
+  box-shadow: 0 10px 28px rgba(88,76,160,0.12); transition: transform 160ms, box-shadow 160ms;
+}
+.btn-login { min-width: 160px; padding-left: 22px; padding-right: 22px; text-align:center; }
+.btn-ghost {
+  background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: 600;
 }
 
-button {
-    padding: 9px 25px;
-    background-color: rgba(0, 136, 169, 1);
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease 0s;
+/* hamburger */
+.hamburger { display: none; border: 0; background: transparent; padding: 8px; border-radius: 8px; cursor: pointer; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 4px 0; border-radius: 2px; transition: transform 180ms, opacity 180ms; }
+.hamburger.is-open span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2){ opacity: 0; }
+.hamburger.is-open span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
+
+/* responsive */
+@media (max-width: 980px) {
+  .nav-main {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: linear-gradient(180deg, rgba(15,19,30,0.98), rgba(11,14,20,0.98));
+    overflow: hidden; max-height: 0; transition: max-height 260ms ease, padding 260ms;
+    padding: 0 4%; flex-direction: column; align-items: stretch;
+  }
+  .nav-main.open { max-height: 520px; padding: 12px 4%; }
+
+  .nav__links { flex-direction: column; gap: 8px; padding: 8px 0; }
+  .nav__links li a { padding: 12px 14px; display: block; width: 100%; border-radius: 10px; }
+
+  .hamburger { display: block; }
+  .brand-subtitle-right { display: none; }
 }
 
-button:hover {
-    background-color: rgba(0, 136, 169, 0.8);
-}
-
-.navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background-color: #000000; /* Ensure the background color is set */
-    justify-content: space-around;
+/* accessibility focus */
+.nav__links li a:focus,
+.hamburger:focus,
+.btn-primary:focus,
+.btn-ghost:focus {
+  outline: 3px solid rgba(108,120,255,0.12); outline-offset: 3px;
 }

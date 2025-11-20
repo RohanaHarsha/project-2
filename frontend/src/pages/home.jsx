@@ -52,10 +52,7 @@ export default function Home() {
               opasity: "10px",
             }}
           />
-          <button
-            type="submit"
-            style={{ borderRadius: "30px", padding: "5px" }}
-          >
+          <button type="submit">
             Search
           </button>
         </form>
