@@ -1,182 +1,176 @@
-/* General Page Styles */
-.camp-details {
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
-  }
-  
-  .camp-title h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: capitalize;
-    margin-bottom: 0.5rem;
-  }
-  
-  .camp-title p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #555;
-  }
+/* Professional Property info page — fixed rectangle main image, table details, separate description */
 
-  .house_description {
-    font-family: Arial, sans-serif;
-    color: #000000;
-    line-height: 1.6;
-    margin-top: 20px;
-  }
-  
-  .property_highlights, .property_features, .property_description {
-    margin-bottom: 24px;
-  }
-  
-  .property_highlights h2,
-  .property_features h2,
-  .property_description h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  
-  /* Gallery Layout */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .gallery div {
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .gallery img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .gallery img:hover {
-    transform: scale(1.05);
-  }
-  
-  /* 3D View Containers */
-  .scene-container {
-    width: 100%;
-    height: 200px;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Property Details Section */
-  .details {
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #444;
-  }
-  
-  .details h2 {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .details h4 {
-    font-size: 1.25rem;
-    color: #1e88e5;
-  }
-  
-  /* Description Section */
-  .house_description {
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-  }
-  
-  /* Line Break */
-  .line {
-    margin: 2rem 0;
-    border: none;
-    border-top: 2px solid #e0e0e0;
-  }
-  
-  /* Buttons */
-  .btn {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary {
-    background-color: #1e88e5;
-    color: white;
-    border: none;
-  }
-  
-  .btn-primary:hover {
-    background-color: #1565c0;
-  }
-  
-  .call-button {
-    color: white;
-    text-decoration: none;
-  }
-  
-  /* Google Maps Section */
-  .map {
-    margin-top: 2rem;
-    height: 400px;
-    width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .map-button button {
-    padding: 0.75rem 2rem;
-    border-radius: 10px;
-    background-color: #2e7d32;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .map-button button:hover {
-    background-color: #1b5e20;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .gallery {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-  
-    .house_description {
-      font-size: 1rem;
-    }
-  
-    .btn {
-      font-size: 0.95rem;
-      padding: 0.5rem 1rem;
-    }
-  }
-  
-  .house_description,
-.house_description * {
-  color: #1a1a1a !important;
+:root{
+  --page-bg: #f7f8fb;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #1e88e5;
+  --accent-2: #174ea6;
+  --shadow: 0 10px 30px rgba(18,24,40,0.06);
+  --radius: 12px;
+  --max-w: 1100px;
+}
+
+/* page */
+.pi-container{
+  background: var(--page-bg);
+  padding: 28px 16px;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #111827;
+  min-height: 60vh;
+}
+
+/* grid: gallery + sidebar */
+.pi-grid{
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Gallery - keep main image a fixed rectangle (consistent regardless of source dimensions) */
+.pi-gallery{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.pi-main-image{
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: zoom-in;
+  /* fixed rectangle aspect */
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  max-height: 520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.pi-main-image img{
+  width:100%;
+  height:100%;
+  object-fit: cover; /* preserves rectangle, crops to fill without stretching */
+  display:block;
+  transition: transform 220ms ease;
+}
+.pi-main-image:hover img{ transform: scale(1.02); }
+
+/* thumbnails */
+.pi-thumbs{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.pi-thumb{
+  border: 1px solid rgba(15,23,42,0.06);
+  background:#fff;
+  padding:4px;
+  border-radius:8px;
+  width:84px;
+  height:64px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: box-shadow 160ms, transform 160ms, border-color 160ms;
+  overflow:hidden;
+}
+.pi-thumb img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:6px; }
+.pi-thumb:hover{ transform: translateY(-4px); box-shadow: 0 10px 20px rgba(17,24,39,0.06); }
+.pi-thumb.active{ border-color: var(--accent); box-shadow: 0 12px 30px rgba(30,136,229,0.08); }
+
+/* Sidebar */
+.pi-sidebar{
+  position: relative;
+  top: 0;
+  align-self: start;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.pi-title{ margin:0; font-size:1.25rem; font-weight:700; color:#0b1220; }
+.pi-sub{ margin:0; color:var(--muted); font-size:0.95rem; }
+.pi-price{ font-size:1.35rem; color:var(--accent); font-weight:800; margin-top:6px; }
+
+/* DETAILS TABLE (clear, readable table layout) */
+.pi-details-table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  background: transparent;
+  font-size: 0.95rem;
+}
+.pi-details-table th,
+.pi-details-table td{
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px dashed rgba(15,23,42,0.04);
+}
+.pi-details-table th{
+  width: 38%;
+  color: var(--muted);
+  font-weight: 600;
+  background: rgba(15,23,42,0.01);
+}
+.pi-details-table td{
+  color: #111827;
+  font-weight: 700;
+}
+
+/* actions */
+.pi-actions{ display:flex; gap:10px; margin-top:6px; }
+.pi-call{
+  display:inline-block;
+  padding:10px 16px;
+  background: var(--accent);
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow: 0 8px 22px rgba(30,136,229,0.12);
+}
+.pi-book{
+  border: 1px solid rgba(15,23,42,0.06);
+  background: transparent;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* Description and location containers separated for clarity */
+.pi-description, .pi-location{
+  margin-top: 10px;
+  background: rgba(15,23,42,0.02);
+  padding: 12px;
+  border-radius: 8px;
+}
+.pi-description h3, .pi-location h3{
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  color: #0b1220;
+}
+.pi-text{ margin:0; color:#374151; line-height:1.6; font-size:0.98rem; }
+
+/* small states */
+.pi-loading, .pi-error{ max-width:var(--max-w); margin: 60px auto; text-align:center; color:var(--muted); font-size:1rem; }
+
+/* responsive */
+@media (max-width: 600px){
+  .pi-grid{ grid-template-columns: 1fr; }
+  .pi-sidebar{ position: relative; order: 2; width: 100%; }
+  .pi-gallery{ order: 1; }
+  .pi-main-image{ aspect-ratio: 16 / 9; min-height: 240px; }
+  .pi-thumbs{ gap:8px; }
+  .pi-details-table th{ width: 40%; }
 }

@@ -60,7 +60,7 @@ export default function Home() {
 
       <div className="web_body">
         <div className="latestProjectsContainer">
-          <h2>Latest Projects</h2>
+          
           <LatestProjects />
           <div className="latestProjectsContainer">
             <Recent />

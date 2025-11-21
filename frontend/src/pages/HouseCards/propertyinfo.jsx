@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HouseCards.css";
+import "./propertyinfo.css";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/commen/navbar";
-import "aframe";
-import "./propertyinfo.css";
-
+import PopupModal from "./PopupModal";
+import Footer from "../../components/Footer/footer";
 import {
   Dialog,
   DialogTitle,
@@ -14,313 +14,213 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-
 import defimg from "../../img/1st.jpg";
-import PopupModal from "./PopupModal";
-import Footer from "../../components/Footer/footer";
 
-const HouseDisplay = () => {
-  const { houseType } = useParams();
-  const [filteredHouses, setFilteredHouses] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedHouse, setSelectedHouse] = useState(null);
-  const [bookingDate, setBookingDate] = useState("");
-  const [bookingTime, setBookingTime] = useState("");
-
-  const fetchHouses = useCallback(() => {
-    axios
-      .get(`http://127.0.0.1:5000/house/displayHouses/${houseType}`)
-      .then((response) => {
-        setFilteredHouses(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the houses!", error);
-      });
-  }, [houseType]);
-
-  useEffect(() => {
-    fetchHouses();
-  }, [fetchHouses]);
-
-  const handleBookNowClick = (house) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      alert("You need to log in to book a house.");
-      return;
-    }
-    setSelectedHouse(house);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setSelectedHouse(null);
-    setBookingDate("");
-    setBookingTime("");
-  };
-
-  const handleBookingSubmit = () => {
-    const userId = localStorage.getItem("userId");
-    if (!userId || !selectedHouse || !bookingDate || !bookingTime) {
-      alert("Please provide all the required information.");
-      return;
-    }
-    const formattedBookingTime = `${bookingTime}:00`;
-    const bookingData = {
-      house_id: selectedHouse.id,
-      user_id: userId,
-      booking_date: bookingDate,
-      booking_time: formattedBookingTime,
-    };
-
-    axios
-      .post("http://127.0.0.1:5000/booking/addBooking", bookingData)
-      .then((response) => {
-        alert("Booking successful!");
-        handleCloseDialog();
-      })
-      .catch((error) => {
-        console.error("There was an error making the booking:", error);
-      });
-  };
-
-  return (
-    <div>
-      <Navbar />
-      <Propertyinfo onBookNowClick={handleBookNowClick} />
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Book Now</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin="dense"
-            label="Booking Date"
-            type="date"
-            fullWidth
-            value={bookingDate}
-            onChange={(e) => setBookingDate(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            margin="dense"
-            label="Booking Time"
-            type="time"
-            fullWidth
-            value={bookingTime}
-            onChange={(e) => setBookingTime(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button
-            onClick={handleBookingSubmit}
-            variant="contained"
-            color="primary"
-          >
-            Confirm Booking
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+const safeImage = (imgObj, key) => {
+  if (!imgObj) return null;
+  const val = imgObj[key];
+  if (!val) return null;
+  return `http://127.0.0.1:5000/static/uploads/${val}`;
 };
 
-const Propertyinfo = ({ onBookNowClick }) => {
+export default function PropertyInfoPage() {
   const { id } = useParams();
   const [house, setHouse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+
+  // Image lightbox & selected thumb
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxUrl, setLightboxUrl] = useState("");
+  const [activeThumb, setActiveThumb] = useState(null);
+
+  // Booking dialog
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingDate, setBookingDate] = useState("");
+  const [bookingTime, setBookingTime] = useState("");
 
   useEffect(() => {
-    if (id) {
-      const fetchHouses = async () => {
-        try {
-          const response = await axios.post(
-            "http://127.0.0.1:5000/house/displayHouse",
-            { id: id }
-          );
-          setHouse(response.data);
-        } catch (err) {
-          console.error("Error fetching property data:", err);
-          setError("Failed to fetch property data.");
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchHouses();
-    }
+    if (!id) return;
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.post("http://127.0.0.1:5000/house/displayHouse", { id });
+        setHouse(res.data || null);
+        // set a sensible active thumb
+        const first = res.data?.images?.[0];
+        setActiveThumb(
+          safeImage(first, "image1") ||
+            safeImage(first, "image2") ||
+            safeImage(first, "image3") ||
+            safeImage(first, "image4") ||
+            defimg
+        );
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load property details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!house) return <p>No property found</p>;
+  const openLightbox = (url) => {
+    setLightboxUrl(url || defimg);
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxUrl("");
+  };
 
-  const openModal = (url) => {
-    setImageUrl(url);
-    setIsOpen(true);
+  const openBooking = () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("Please log in to make a booking.");
+      return;
+    }
+    setBookingOpen(true);
   };
-  const closeModal = () => {
-    setIsOpen(false);
-    setImageUrl("");
+  const closeBooking = () => {
+    setBookingOpen(false);
+    setBookingDate("");
+    setBookingTime("");
   };
+  const submitBooking = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId || !bookingDate || !bookingTime || !house) {
+      alert("Provide date and time.");
+      return;
+    }
+    try {
+      await axios.post("http://127.0.0.1:5000/booking/addBooking", {
+        house_id: house.id,
+        user_id: userId,
+        booking_date: bookingDate,
+        booking_time: `${bookingTime}:00`,
+      });
+      alert("Booking successful.");
+      closeBooking();
+    } catch (err) {
+      console.error(err);
+      alert("Booking failed. Try again later.");
+    }
+  };
+
+  if (loading) return <div><Navbar /><main className="pi-loading">Loading property…</main></div>;
+  if (error) return <div><Navbar /><main className="pi-error">{error}</main></div>;
+  if (!house) return <div><Navbar /><main className="pi-error">Property not found.</main></div>;
+
+  const imagesObj = house.images && house.images[0] ? house.images[0] : {};
+  const thumbs = [
+    safeImage(imagesObj, "image1"),
+    safeImage(imagesObj, "image2"),
+    safeImage(imagesObj, "image3"),
+    safeImage(imagesObj, "image4"),
+  ].filter(Boolean);
+
+  const mainImage = activeThumb || thumbs[0] || defimg;
 
   return (
-    <div className="capitalize camp-details">
-      <div className="camp-title">
-        <div className="row">
-          <p>
-            <i className="fas fa-map-marker-alt"></i> <b>{house.district}</b>
-          </p>
+    <>
+      <Navbar />
+      <main className="pi-container">
+        <div className="pi-grid">
+          <section className="pi-gallery" aria-label="Property images">
+            <div className="pi-main-image" role="button" onClick={() => openLightbox(mainImage)}>
+              <img src={mainImage} alt={house.keyWord || house.district || "Property image"} loading="lazy" />
+            </div>
+
+            {thumbs.length > 0 && (
+              <div className="pi-thumbs" role="list">
+                {thumbs.map((t, i) => (
+                  <button
+                    key={t + i}
+                    className={`pi-thumb ${t === activeThumb ? "active" : ""}`}
+                    onClick={() => { setActiveThumb(t); }}
+                    aria-label={`View image ${i + 1}`}
+                    type="button"
+                  >
+                    <img src={t} alt={`Thumbnail ${i + 1}`} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <aside className="pi-sidebar" aria-labelledby="pi-title">
+           
+            <p className="pi-sub">Loc {house.district}</p>
+
+            <div className="pi-price">MiL {house.price ? Number(house.price).toLocaleString() : "Contact"}</div>
+
+            {/* DETAILS: rendered as a simple table for clear reading */}
+            <table className="pi-details-table" aria-label="Property details">
+              <tbody>
+                <tr>
+                  <th>Storey</th><td>{house.storey || "—"}</td>
+                  <th>Land(sqm)</th><td>{house.land_size ? `${house.land_size} ` : "—"}</td>
+                 </tr>
+                <tr>
+                   <th>Bedrooms</th><td>{house.no_of_rooms || "—"}</td>
+                  <th>Bathrooms</th><td>{house.no_of_bathrooms || "—"}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="pi-actions">
+              <a className="pi-call" href={`tel:${house.phone_number}`} aria-label="Call seller">Call Now</a>
+              <button className="pi-book" onClick={openBooking}>Request Visit</button>
+            </div>
+
+            {/* separate description container for readability */}
+            <div className="pi-description">
+              <h3>Overview</h3>
+              <div className="pi-text">{house.description || "No description provided."}</div>
+            </div>
+
+            <div className="pi-location">
+              <h3>Location</h3>
+              <div className="pi-text">{house.district || "Unknown district"}</div>
+            </div>
+          </aside>
         </div>
-        <div className="gallery">
-          <div className="gallery">
-            <div>
-              <img
-                src={
-                  house.images && house.images[0]
-                    ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image1}`
-                    : defimg
-                }
-                alt="House"
-                onClick={() =>
-                  openModal(
-                    `http://127.0.0.1:5000/static/uploads/${house.images[0].image1}`
-                  )
-                }
-              />
-            </div>
 
-            {/* 2D Image 2 */}
-            <div>
-              <img
-                src={
-                  house.images && house.images[0]
-                    ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image2}`
-                    : defimg
-                }
-                alt="House"
-                onClick={() =>
-                  openModal(
-                    `http://127.0.0.1:5000/static/uploads/${house.images[0].image2}`
-                  )
-                }
-              />
-            </div>
+        {/* Lightbox Modal */}
+        <PopupModal isOpen={lightboxOpen} onRequestClose={closeLightbox} imageUrl={lightboxUrl} />
 
-            {/* 2D Image 3 */}
-            <div>
-              <img
-                src={
-                  house.images && house.images[0]
-                    ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image3}`
-                    : defimg
-                }
-                alt="House"
-                onClick={() =>
-                  openModal(
-                    `http://127.0.0.1:5000/static/uploads/${house.images[0].image3}`
-                  )
-                }
-              />
-            </div>
-
-            {/* 2D Image 4 */}
-            <div>
-              <img
-                src={
-                  house.images && house.images[0]
-                    ? `http://127.0.0.1:5000/static/uploads/${house.images[0].image4}`
-                    : defimg
-                }
-                alt="House"
-                onClick={() =>
-                  openModal(
-                    `http://127.0.0.1:5000/static/uploads/${house.images[0].image4}`
-                  )
-                }
-              />
-            </div>
-
-            {/* Popup Modal */}
-            <PopupModal
-              isOpen={isOpen}
-              onRequestClose={closeModal}
-              imageUrl={imageUrl}
+        {/* Booking Dialog */}
+        <Dialog open={bookingOpen} onClose={closeBooking}>
+          <DialogTitle>Request a Visit</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              label="Visit Date"
+              type="date"
+              fullWidth
+              value={bookingDate}
+              onChange={(e) => setBookingDate(e.target.value)}
+              InputLabelProps={{ shrink: true }}
             />
-          </div>
+            <TextField
+              margin="dense"
+              label="Visit Time"
+              type="time"
+              fullWidth
+              value={bookingTime}
+              onChange={(e) => setBookingTime(e.target.value)}
+              InputLabelProps={{ shrink: true }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeBooking}>Cancel</Button>
+            <Button onClick={submitBooking} variant="contained">Send Request</Button>
+          </DialogActions>
+        </Dialog>
+      </main>
 
-          <PopupModal
-            isOpen={isOpen}
-            onRequestClose={closeModal}
-            imageUrl={imageUrl}
-          />
-        </div>
-        <div className="details">
-          <h2>Daffodillzone (PVT)LTD</h2>
-          <p>
-            <b>100% settled proof &nbsp;</b>
-          </p>
-          <h4>
-            <b>Price Rs.{house.price || "Not mentioned"}M</b>
-          </h4>
-        </div>
-        <hr className="line" />
-        <hr className="line" />
-        <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
-          <div className="house_description text-gray-800 text-base leading-relaxed space-y-6">
-            {/* Property Highlights */}
-            <div className="property_highlights">
-              <h2 className="text-xl font-semibold mb-2 text-black">
-                Property Highlights
-              </h2>
-              <ul className="list-disc pl-6 text-gray-800">
-                <li>Type: {house.houseType || "Not mentioned"}</li>
-                <li>District: {house.district || "Not mentioned"}</li>
-                <li>Address: {house.address || "Not mentioned"}</li>
-              </ul>
-            </div>
-
-            {/* Property Features */}
-            <div className="property_features">
-              <h2 className="text-xl font-semibold mb-2 text-black">
-                Property Features
-              </h2>
-              <ul className="list-disc pl-6 text-gray-800">
-                <li>{house.no_of_rooms || "Not mentioned"} Bed Rooms</li>
-                <li>{house.no_of_bathrooms || "Not mentioned"} Bathrooms</li>
-                <li>
-                  {house.land_size || "Not mentioned"} sqm<sup>2</sup>
-                </li>
-                <li>{house.distance || "Not mentioned"} To The Nearest City</li>
-                <li>{house.storey || "Not mentioned"} Storey</li>
-              </ul>
-            </div>
-
-            {/* Property Description */}
-            <div className="property_description">
-              <h2 className="text-xl font-semibold mb-2 text-black">
-                Property Description
-              </h2>
-              <p className="text-justify text-gray-800">
-                {house.description ||
-                  "No additional description provided by the seller."}
-              </p>
-            </div>
-          </div>
-        </div>
-        <hr className="line" />
-        <button className="btn btn-primary">
-          <a href={`tel:${house.phone_number}`} className="call-button">
-            Call Now
-          </a>
-        </button>
-        &nbsp;&nbsp;
-      </div>
       <Footer />
-    </div>
+    </>
   );
-};
-
-export default HouseDisplay;
+}

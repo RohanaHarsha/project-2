@@ -44,7 +44,7 @@ def login_user():
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"error": "Invalid credentials", "status": "fail"}), 401
 
-        # 🔥 Role is coming from the DB — no role from request
+        #Role is coming from the DB 
         role = getattr(user, "role", None)
         username = getattr(user, "username", None)
 
@@ -61,15 +61,12 @@ def login_user():
 
 
 
-
-
-
-
 @auth_bp.route('/UsersignUp', methods=['POST'])
 def UsersignUp():
     try:
         email = request.json.get("email")
         password = request.json.get("password")
+        role ="customer"
 
         if not email or not password:
             return jsonify({"error": "Email and password required", "status": "fail"}), 400

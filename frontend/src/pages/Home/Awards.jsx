@@ -13,10 +13,7 @@ export default function Awards() {
   return (
     <section className="awards-section">
       <div className="awards-inner container">
-        <Heading
-          title="Over 10,000+ Happy Users — They Love Our Services"
-          subtitle="Our Awards"
-        />
+        
 
         <div className="awards-grid" role="list">
           {items.map((it) => (

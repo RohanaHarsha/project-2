@@ -10,7 +10,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [tp, setTP] = useState(""); 
+  const [tp, setTP] = useState("");
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -220,7 +220,6 @@ const Signup = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
