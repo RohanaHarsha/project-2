@@ -13,7 +13,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-contact" aria-label="Contact information">
-          <a className="contact-line" href="tel:+94123456789">+94 12 345 6789</a>
+          <a className="contact-line" href="tel:+94717876867">+94 71 787 6867</a>
           <a className="contact-line" href="mailto:daffodilzone@gmail.com">daffodilzone@gmail.com</a>
         </div>
 

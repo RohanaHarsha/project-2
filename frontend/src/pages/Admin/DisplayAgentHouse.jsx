@@ -12,7 +12,7 @@ const DisplayHouse = () => {
 
   const fetchHouses = () => {
     axios
-      .get("http://127.0.0.1:5000/auth/displayAllAgentHouse")
+      .get("https://project-2-vdwg.onrender.com/auth/displayAllAgentHouse")
       .then((response) => {
         setHouses(response.data);
       })
@@ -68,7 +68,7 @@ const DisplayHouse = () => {
           const fileName = house.images[i].image1;
           if (!fileName) continue;
 
-          const fileUrl = `http://127.0.0.1:5000/static/uploads/${fileName}`;
+          const fileUrl = `https://project-2-vdwg.onrender.com/static/uploads/${fileName}`;
           const response = await fetch(fileUrl);
           const blob = await response.blob();
 
@@ -77,7 +77,7 @@ const DisplayHouse = () => {
       }
 
       const uploadResponse = await axios.post(
-        "http://127.0.0.1:5000/house/addLuxuryHouse",
+        "https://project-2-vdwg.onrender.com/house/addLuxuryHouse",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -91,7 +91,7 @@ const DisplayHouse = () => {
         message: `A new house has been added:\n\n${houseDetails}`,
       };
 
-      await axios.post("http://127.0.0.1:5000/send_email", emailData);
+      await axios.post("https://project-2-vdwg.onrender.com/send_email", emailData);
 
       alert("House submitted & email sent!");
     } catch (err) {
@@ -135,7 +135,7 @@ const DisplayHouse = () => {
               <td>
                 {house.images?.[0]?.image1 ? (
                   <img
-                    src={`http://127.0.0.1:5000/static/uploads/${house.images[0].image1}`}
+                    src={`https://project-2-vdwg.onrender.com/static/uploads/${house.images[0].image1}`}
                     alt="House"
                     style={{ width: "100px", borderRadius: "5px" }}
                   />

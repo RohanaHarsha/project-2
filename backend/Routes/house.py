@@ -3,6 +3,7 @@ import os
 from werkzeug.utils import secure_filename
 from models import db, House, HouseImage
 from schemas import HouseSchema
+from sqlalchemy import or_
 
 
 house_bp = Blueprint('Houses', __name__)
@@ -102,7 +103,7 @@ def displayHouses(houseType):
     except Exception as e:
         return jsonify({"error": str(e), "status": "fail"}), 500       
 
-# ...existing code...
+
 @house_bp.route('/deleteHouse/<int:id>', methods=['DELETE'])
 def delete_house(id):
     try:
@@ -176,3 +177,28 @@ def get_house():
         return jsonify(house_data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@house_bp.route('/displayHouses/search', methods=['GET'])
+def search_houses():
+    try:
+        q = (request.args.get('q') or "").strip()
+        # if no query, return all houses
+        if not q:
+            houses = House.query.order_by(House.upload_time.desc()).all()
+        else:
+            term = f"%{q}%"
+            houses = House.query.filter(
+                or_(
+                    House.district.ilike(term),
+                    House.houseType.ilike(term),
+                    House.keyWord.ilike(term),
+                    House.address.ilike(term)
+                )
+            ).order_by(House.upload_time.desc()).all()
+
+        results = HouseSchema(many=True).dump(houses)
+        return jsonify(results), 200
+    except Exception as e:
+        current_app.logger.exception("search_houses error")
+        return jsonify({"error": str(e), "status": "fail"}), 500

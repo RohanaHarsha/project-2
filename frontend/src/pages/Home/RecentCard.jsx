@@ -13,7 +13,7 @@ const RecentCard = () => {
 
   const fetchHouses = () => {
     axios
-      .get("http://127.0.0.1:5000/app/displayRecentCard")
+      .get("https://project-2-vdwg.onrender.com/app/displayRecentCard")
       .then((response) => setHouses(response.data))
       .catch((error) => console.error("Error fetching recent houses", error));
   };
@@ -30,7 +30,7 @@ const RecentCard = () => {
           const { id, district, houseType, images = [], keyWord } = house;
           const imgSrc =
             images && images.length > 0 && images[0].image1
-              ? `http://127.0.0.1:5000/static/uploads/${images[0].image1}`
+              ? `https://project-2-vdwg.onrender.com/static/uploads/${images[0].image1}`
               : placeholderSvg;
 
           return (

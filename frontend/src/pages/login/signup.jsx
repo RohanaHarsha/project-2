@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/commen/navbar";
+import Navbar from "../../components/common/navbar";
 
 const Signup = () => {
   const [isSignInActive, setIsSignInActive] = useState(true);
@@ -30,7 +30,7 @@ const Signup = () => {
 
     axios
       .post(
-        "http://127.0.0.1:5000/auth/login",
+        "https://project-2-vdwg.onrender.com/auth/login",
         { email, password },
         { withCredentials: true }
       )
@@ -88,7 +88,7 @@ const Signup = () => {
     setLoading(true);
 
     axios
-      .post("http://127.0.0.1:5000/auth/UsersignUp", {
+      .post("https://project-2-vdwg.onrender.com/auth/UsersignUp", {
         name,
         email,
         password,

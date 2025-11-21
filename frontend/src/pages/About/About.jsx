@@ -1,9 +1,9 @@
 // ...existing code...
 import React from "react";
-import Heading from "../../components/commen/Heading";
+import Heading from "../../components/common/Heading";
 import img1 from "../../img/immio.jpg";
 import styles from "./About.module.css";
-import Navbar from "../../components/commen/navbar";
+import Navbar from "../../components/common/navbar";
 import Footer from '../../components/Footer/footer';
 
 const stats = [

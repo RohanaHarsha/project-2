@@ -1,4 +1,5 @@
-/* Modern About page styling - responsive and professional */
+/* Modern About page styling - responsive and professional
+   — adjusted alignment, spacing and smoothing for headings, stats and sections */
 
 :root{
   --bg: #f6f8fb;
@@ -10,6 +11,8 @@
   --gap: 28px;
   --shadow: 0 14px 40px rgba(17,24,39,0.06);
   font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .about {
@@ -49,14 +52,19 @@
   color: #fff;
   max-width: 980px;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
 }
 
+/* Kicker and headings */
 .kicker {
   margin: 0;
   font-size: 0.95rem;
   color: rgba(255,255,255,0.9);
   opacity: 0.95;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.2px;
 }
 
 .heroTitle {
@@ -65,6 +73,8 @@
   line-height: 1.05;
   font-weight: 800;
   text-transform: none;
+  letter-spacing: -0.2px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .lead {
@@ -72,6 +82,8 @@
   max-width: 760px;
   color: rgba(255,255,255,0.90);
   font-size: 1.05rem;
+  line-height: 1.5;
+  letter-spacing: 0.1px;
 }
 
 /* hero CTA */
@@ -106,9 +118,11 @@
   display: flex;
   gap: var(--gap);
   box-sizing: border-box;
+  align-items: flex-start; /* ensure left and right align to top */
 }
 
-.left { flex: 1.1; }
+/* left/right columns */
+.left { flex: 1.1; display:flex; flex-direction:column; gap:12px; }
 .right { flex: 0.9; display:flex; align-items:flex-start; justify-content:center; }
 
 /* paragraphs */
@@ -117,13 +131,17 @@
   font-size: 1.03rem;
   line-height: 1.75;
   margin-bottom: 1rem;
+  text-align: left; /* ensure consistent left alignment */
+  hyphens: auto;
 }
 
-/* stats row */
+/* stats row: ensure consistent vertical alignment and spacing */
 .stats {
   display:flex;
   gap: 12px;
   margin: 18px 0 6px;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
 .stat {
   background: linear-gradient(180deg, rgba(108,120,255,0.06), rgba(87,75,144,0.02));
@@ -132,11 +150,15 @@
   min-width: 110px;
   text-align: left;
   box-shadow: 0 8px 24px rgba(17,24,39,0.04);
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
 }
 .statValue {
   font-size: 1.3rem;
   font-weight:800;
   color: #0f172a;
+  line-height:1;
 }
 .statLabel { color: var(--muted); font-weight:600; font-size:0.9rem; }
 
@@ -191,6 +213,9 @@
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(17,24,39,0.04);
   min-width: 220px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 .missionCard h3 { margin: 0 0 8px; }
 .bullet { margin: 0; padding-left: 18px; color: #374151; line-height: 1.8; }
@@ -204,11 +229,17 @@
   font-weight:700;
 }
 
+/* TINY ADJUSTMENTS: ensure consistent spacing and smooth text */
+.about h1, .about h2, .about h3, .about p {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* RESPONSIVE */
 @media (max-width: 1000px) {
   .container { flex-direction: column; padding: 28px 5%; }
   .right { order: -1; margin-bottom: 12px; }
-  .heroTitle { font-size: 1.9rem; }
+  .heroTitle { font-size: 1.9rem; text-align:center; }
   .hero { height: 46vh; min-height: 320px; }
 }
 @media (max-width: 300px) {

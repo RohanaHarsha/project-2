@@ -3,7 +3,7 @@ import axios from "axios";
 import "./HouseCards.css";
 import "./propertyinfo.css";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/commen/navbar";
+import Navbar from "../../components/common/navbar";
 import PopupModal from "./PopupModal";
 import Footer from "../../components/Footer/footer";
 import {
@@ -20,7 +20,7 @@ const safeImage = (imgObj, key) => {
   if (!imgObj) return null;
   const val = imgObj[key];
   if (!val) return null;
-  return `http://127.0.0.1:5000/static/uploads/${val}`;
+  return `https://project-2-vdwg.onrender.com/static/uploads/${val}`;
 };
 
 export default function PropertyInfoPage() {
@@ -44,7 +44,7 @@ export default function PropertyInfoPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.post("http://127.0.0.1:5000/house/displayHouse", { id });
+        const res = await axios.post("https://project-2-vdwg.onrender.com/house/displayHouse", { id });
         setHouse(res.data || null);
         // set a sensible active thumb
         const first = res.data?.images?.[0];
@@ -94,7 +94,7 @@ export default function PropertyInfoPage() {
       return;
     }
     try {
-      await axios.post("http://127.0.0.1:5000/booking/addBooking", {
+      await axios.post("https://project-2-vdwg.onrender.com/booking/addBooking", {
         house_id: house.id,
         user_id: userId,
         booking_date: bookingDate,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../commen/filter.css';
+import '../common/filter.css';
 
 export default function Filter({ houseType, onFilter }) {
   const [district, setDistrict] = useState('');

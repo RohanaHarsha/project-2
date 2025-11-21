@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from '../../components/commen/sidebar';
+import Sidebar from '../../components/common/sidebar';
 import HomeVid from "../../img/HomeVid.mp4";
 import './adminhome.css';
 import LatestProjects from '../../components/LatestProjects';

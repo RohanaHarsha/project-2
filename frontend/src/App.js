@@ -6,7 +6,7 @@ import BannerAdd from './pages/bannerAdd';
 import AddHouse from './pages/AddHouse';
 import About from './pages/About/About';
 import Login from './pages/login/signup';
-import Layout from "./components/commen/layout";
+import Layout from "./components/common/layout";
 import Hotels from './pages/hotels'
 import AdminHome from './pages/Admin/AdminHome';
 import Lands from './pages/Lands'

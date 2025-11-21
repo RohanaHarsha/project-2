@@ -1,5 +1,5 @@
 import React from "react"
-import "../commen/back.css"
+import "./back.css"
 
 const Back = ({ name, title, cover }) => {
   return (

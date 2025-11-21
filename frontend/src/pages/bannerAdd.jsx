@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
 import "./bannerAdd.css"; // Use a better name like BannerForm.css
-import Sidebar from "../components/commen/sidebar";
+import Sidebar from "../components/common/sidebar";
 
 const AddBannerForm = () => {
   const [images, setImages] = useState([]);
@@ -21,7 +21,7 @@ const AddBannerForm = () => {
 
   const fetchImages = () => {
     axios
-      .get("http://127.0.0.1:5000/banner/displayBanner")
+      .get("https://project-2-vdwg.onrender.com/banner/displayBanner")
       .then((res) => setImages(res.data))
       .catch((err) => console.error("Error fetching images", err));
   };
@@ -55,7 +55,7 @@ const AddBannerForm = () => {
     formData.append("description", description);
 
     axios
-      .post("http://127.0.0.1:5000/banner/addBanner", formData)
+      .post("https://project-2-vdwg.onrender.com/banner/addBanner", formData)
       .then((res) => {
         if (res.status === 201) {
           setResponseMsg({
@@ -80,7 +80,7 @@ const AddBannerForm = () => {
 
   const deleteImage = (id) => {
     axios
-      .delete(`http://127.0.0.1:5000/banner/deleteBanner/${id}`)
+      .delete(`https://project-2-vdwg.onrender.com/banner/deleteBanner/${id}`)
       .then((res) => {
         if (res.status === 200) fetchImages();
       })
@@ -143,7 +143,7 @@ const AddBannerForm = () => {
                 <td>{img.description}</td>
                 <td>
                   <img
-                    src={`http://127.0.0.1:5000/static/uploads/${img.title}`}
+                    src={`https://project-2-vdwg.onrender.com/static/uploads/${img.title}`}
                     style={{ width: "100px" }}
                     alt="Banner"
                   />

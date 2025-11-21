@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/commen/navbar';
+import Navbar from '../../components/common/navbar';
 import Table from 'react-bootstrap/Table';
 import '../AddHouse.css'; // Assuming you have a CSS file for additional styling
 
@@ -25,7 +25,7 @@ class MyBookings extends Component {
     }
 
     fetchBookings = (sessionUserId) => {
-        axios.get(`http://127.0.0.1:5000/getBookingDetailsByUser/${sessionUserId}`)
+        axios.get(`https://project-2-vdwg.onrender.com/getBookingDetailsByUser/${sessionUserId}`)
             .then((response) => {
                 console.log('Booking details:', response.data);
                 this.setState({ bookings: response.data });

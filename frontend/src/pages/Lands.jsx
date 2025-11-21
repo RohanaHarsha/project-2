@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/commen/navbar'
+import Navbar from '../components/common/navbar'
 
 export default function Lands() {
   return (

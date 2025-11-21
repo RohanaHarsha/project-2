@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/commen/navbar'
+import Navbar from '../components/common/navbar'
 import Footer from '../components/Footer/footer';
 
 export default function apartment() {
