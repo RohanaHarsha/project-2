@@ -11,7 +11,7 @@ export default function Filter({ houseType, onFilter }) {
     const formData = { district, bedrooms, story };
 
     try {
-      const response = await fetch(`http://localhost:5000/filter/${houseType}`, {
+      const response = await fetch(`https://daffodilzone-b-end.onrender.com/filter/${houseType}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

@@ -21,7 +21,7 @@ class AllBookings extends Component {
 
     // Fetch all bookings from the API
     fetchAllBookings = () => {
-        axios.get('http://localhost:5000/booking/getBookingDetails')
+        axios.get('https://daffodilzone-b-end.onrender.com/booking/getBookingDetails')
             .then((response) => {
                 console.log('Booking details:', response.data);
                 this.setState({ bookings: response.data });
@@ -33,7 +33,7 @@ class AllBookings extends Component {
 
     // Confirm a booking
     confirmBooking = (bookingId) => {
-        axios.post(`http://localhost:5000/booking/confirmBooking/${bookingId}`)
+        axios.post(`https://daffodilzone-b-end.onrender.com/booking/confirmBooking/${bookingId}`)
             .then((response) => {
                 console.log('Booking confirmed:', response.data);
                 this.fetchAllBookings(); // Refresh the list after action
@@ -45,7 +45,7 @@ class AllBookings extends Component {
 
     // Delete a booking
     deleteBooking = (bookingId) => {
-        axios.delete(`http://localhost:5000/booking/deleteBooking/${bookingId}`)
+        axios.delete(`https://daffodilzone-b-end.onrender.com/booking/deleteBooking/${bookingId}`)
             .then((response) => {
                 console.log('Booking deleted:', response.data);
                 this.fetchAllBookings(); // Refresh the list after deletion

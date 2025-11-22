@@ -20,7 +20,7 @@ const safeImage = (imgObj, key) => {
   if (!imgObj) return null;
   const val = imgObj[key];
   if (!val) return null;
-  return `http://localhost:5000/static/uploads/${val}`;
+  return `https://daffodilzone-b-end.onrender.com/static/uploads/${val}`;
 };
 
 export default function PropertyInfoPage() {
@@ -44,7 +44,7 @@ export default function PropertyInfoPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.post("http://localhost:5000/house/displayHouse", { id });
+        const res = await axios.post("https://daffodilzone-b-end.onrender.com/house/displayHouse", { id });
         setHouse(res.data || null);
         // set a sensible active thumb
         const first = res.data?.images?.[0];
@@ -94,7 +94,7 @@ export default function PropertyInfoPage() {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/booking/addBooking", {
+      await axios.post("https://daffodilzone-b-end.onrender.com/booking/addBooking", {
         house_id: house.id,
         user_id: userId,
         booking_date: bookingDate,

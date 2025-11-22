@@ -88,7 +88,7 @@ const DisplayHouse = ({ userId }) => {
               <td>
                 {house.images && house.images.length > 0 && house.images[0].image1 ? (
                   <img
-                    src={`http://localhost:5000/static/uploads/${house.images[0].image1}`}
+                    src={`https://daffodilzone-b-end.onrender.com/static/uploads/${house.images[0].image1}`}
                     alt={`House ${index + 1}`}
                     style={{ width: '100px' }}
                   />

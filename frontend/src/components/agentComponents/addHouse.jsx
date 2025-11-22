@@ -122,7 +122,7 @@ class AddHouse extends Component {
     data.append("price", price);
 
     axios
-      .post("http://localhost:5000/agent/addAgentHouse", data)
+      .post("https://daffodilzone-b-end.onrender.com/agent/addAgentHouse", data)
       .then((response) => {
         // Handle successful response
         this.setState({

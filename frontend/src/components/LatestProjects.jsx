@@ -17,7 +17,7 @@ class LatestProjects extends Component {
 
   // Fetch images from the backend
   fetchImages = () => {
-    axios.get('http://localhost:5000/banner/displayBanner')
+    axios.get('https://daffodilzone-b-end.onrender.com/banner/displayBanner')
       .then(response => {
         this.setState({ images: response.data });
       })
@@ -58,7 +58,7 @@ class LatestProjects extends Component {
           {/* Left preview container */}
           <div className="preview left" onClick={this.goToPrevious}>
             <img
-              src={`http://localhost:5000/static/uploads/${images[prevIndex].title}`}
+              src={`https://daffodilzone-b-end.onrender.com/static/uploads/${images[prevIndex].title}`}
               alt="Previous Banner"
             />
           </div>
@@ -66,7 +66,7 @@ class LatestProjects extends Component {
           {/* Main banner container */}
           <div className="main-banner">
             <img
-              src={`http://localhost:5000/static/uploads/${images[activeIndex].title}`}
+              src={`https://daffodilzone-b-end.onrender.com/static/uploads/${images[activeIndex].title}`}
               alt="Active Banner"
             />
           </div>
@@ -74,7 +74,7 @@ class LatestProjects extends Component {
           {/* Right preview container */}
           <div className="preview right" onClick={this.goToNext}>
             <img
-              src={`http://localhost:5000/static/uploads/${images[nextIndex].title}`}
+              src={`https://daffodilzone-b-end.onrender.com/static/uploads/${images[nextIndex].title}`}
               alt="Next Banner"
             />
           </div>

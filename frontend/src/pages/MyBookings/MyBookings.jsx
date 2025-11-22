@@ -25,7 +25,7 @@ class MyBookings extends Component {
     }
 
     fetchBookings = (sessionUserId) => {
-        axios.get(`http://localhost:5000/getBookingDetailsByUser/${sessionUserId}`)
+        axios.get(`https://daffodilzone-b-end.onrender.com/getBookingDetailsByUser/${sessionUserId}`)
             .then((response) => {
                 console.log('Booking details:', response.data);
                 this.setState({ bookings: response.data });

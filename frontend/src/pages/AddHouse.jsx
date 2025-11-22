@@ -47,7 +47,7 @@ class AddHouse extends Component {
 
   fetchHouses = () => {
     axios
-      .get("http://localhost:5000/house/displayHouses")
+      .get("https://daffodilzone-b-end.onrender.com/house/displayHouses")
       .then((response) => {
         console.log("GET /house/displayHouses status:", response.status);
         console.log("GET /house/displayHouses data:", response.data);
@@ -125,7 +125,7 @@ class AddHouse extends Component {
       data.append("price", price);
 
       axios
-        .post("http://localhost:5000/house/addLuxuryHouse", data)
+        .post("https://daffodilzone-b-end.onrender.com/house/addLuxuryHouse", data)
         .then((response) => {
           if (response.status === 200 || response.status === 201) {
             this.setState({
@@ -184,7 +184,7 @@ class AddHouse extends Component {
   deleteImage = (id) => {
     if (window.confirm("Are you sure you want to delete this image?")) {
       axios
-        .delete(`http://localhost:5000/house/deleteHouse/${id}`)
+        .delete(`https://daffodilzone-b-end.onrender.com/house/deleteHouse/${id}`)
         .then((response) => {
           if (response.status === 200) {
             this.fetchHouses();
@@ -437,7 +437,7 @@ class AddHouse extends Component {
                       house.images.length > 0 &&
                       house.images[0].image1 ? (
                         <img
-                          src={`http://localhost:5000/static/uploads/${house.images[0].image1}`}
+                          src={`https://daffodilzone-b-end.onrender.com/static/uploads/${house.images[0].image1}`}
                           alt={`House ${index + 1}`}
                           style={{ width: "100px" }}
                         />

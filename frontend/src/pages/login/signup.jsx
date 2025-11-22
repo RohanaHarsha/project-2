@@ -30,7 +30,7 @@ const Signup = () => {
 
     axios
       .post(
-        "http://localhost:5000/auth/login",
+        "https://daffodilzone-b-end.onrender.com/auth/login",
         { email, password },
         { withCredentials: true }
       )
@@ -88,7 +88,7 @@ const Signup = () => {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/auth/UsersignUp", {
+      .post("https://daffodilzone-b-end.onrender.com/auth/UsersignUp", {
         name,
         email,
         password,

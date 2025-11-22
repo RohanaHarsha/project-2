@@ -35,7 +35,7 @@ class AddHotel extends Component {
   }
 
   fetchHotels = () => {
-    axios.get('http://localhost:5000/displayHotel')
+    axios.get('https://daffodilzone-b-end.onrender.com/displayHotel')
       .then((response) => {
         console.log(response.data);
         this.setState({ hotels: response.data });
@@ -89,7 +89,7 @@ class AddHotel extends Component {
       data.append('distance', distance);
       data.append('keyWord', keyWord);
   
-      axios.post('http://localhost:5000/addHotel', data)
+      axios.post('https://daffodilzone-b-end.onrender.com/addHotel', data)
         .then((response) => {
           console.log(response);
           if (response.status === 201) {
@@ -145,7 +145,7 @@ class AddHotel extends Component {
 
   deleteImage = (id) => {
     if (window.confirm('Are you sure you want to delete this?')) {
-      axios.delete(`http://localhost:5000/deleteHotel/${id}`)
+      axios.delete(`https://daffodilzone-b-end.onrender.com/deleteHotel/${id}`)
         .then((response) => {
           if (response.status === 200) {
             this.fetchHotels();
@@ -323,7 +323,7 @@ class AddHotel extends Component {
                 <td>
                   {hotel.images && hotel.images.length > 0 && hotel.images[0].image1 ? (
                     <img
-                      src={`http://localhost:5000/static/uploads/${hotel.images[0].image1}`}
+                      src={`https://daffodilzone-b-end.onrender.com/static/uploads/${hotel.images[0].image1}`}
                       alt={`Hotel ${index + 1}`}
                       style={{ width: '100px' }}
                     />
