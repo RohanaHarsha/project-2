@@ -30,7 +30,7 @@ const Signup = () => {
 
     axios
       .post(
-        "https://project-2-vdwg.onrender.com/auth/login",
+        "http://localhost:5000/auth/login",
         { email, password },
         { withCredentials: true }
       )
@@ -88,7 +88,7 @@ const Signup = () => {
     setLoading(true);
 
     axios
-      .post("https://project-2-vdwg.onrender.com/auth/UsersignUp", {
+      .post("http://localhost:5000/auth/UsersignUp", {
         name,
         email,
         password,

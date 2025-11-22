@@ -122,7 +122,7 @@ class AddHouse extends Component {
     data.append("price", price);
 
     axios
-      .post("https://project-2-vdwg.onrender.com/agent/addAgentHouse", data)
+      .post("http://localhost:5000/agent/addAgentHouse", data)
       .then((response) => {
         // Handle successful response
         this.setState({

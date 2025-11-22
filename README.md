@@ -76,7 +76,7 @@ npm start
 
 ## Running the Project
 After following the above steps:
-- The **backend** (Flask) will be running on a local development server (usually `https://project-2-vdwg.onrender.com`).
+- The **backend** (Flask) will be running on a local development server (usually `http://localhost:5000`).
 - The **frontend** (React) will be running on a separate local port (usually `http://localhost:3000`).
 
 ## Project Structure

@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskdb.db'
+    SQLALCHEMY_DATABASE_URI =  os.environ.get("DATABASE_URL").replace("postgres://", "postgresql://") if os.environ.get("DATABASE_URL") else 'sqlite:///flask.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'DaffodilZone'
     MAIL_SERVER = 'smtp.gmail.com'
