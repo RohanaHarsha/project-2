@@ -21,7 +21,6 @@ marshmallow-sqlalchemy==1.4.2
 node==1.2.2
 npm==0.1.1
 odict==1.9.0
-optional-django==0.3.0
 packaging==25.0
 plumber==1.7
 psycopg2==2.9.11
@@ -40,3 +39,4 @@ zope.hookable==7.0
 zope.interface==7.2
 zope.lifecycleevent==5.1
 zope.proxy==6.1
+
